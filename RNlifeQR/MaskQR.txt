@@ -1,0 +1,63 @@
+import React from 'react';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { RNCamera } from 'react-native-camera';
+
+const { width } = Dimensions.get('screen');
+
+export default function App() {
+  const leftTop = {
+    borderLeftWidth: 3,
+    borderTopWidth: 3,
+    borderColor:'white'
+  };
+  const leftBottom = {
+    borderRightWidth: 3,
+    borderTopWidth: 3,
+    borderColor:'white'
+  };
+  const rightTop = {
+    borderLeftWidth: 3,
+    borderBottomWidth: 3,
+    borderColor:'white'
+  };
+  const rightBottom = {
+    borderRightWidth: 3,
+    borderBottomWidth: 3,
+    borderColor:'white'
+  };
+
+  return (
+    <View style={{ flex: 1 }}>
+      <RNCamera style={{ ...StyleSheet.absoluteFill }} />
+      <View
+        style={{
+          ...StyleSheet.absoluteFill,
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
+        <View
+          style={{
+            width: width / 2,
+            height: width / 2,
+          }}
+        >
+          <View
+            style={{ flex: 1, flexDirection: "row"}}
+          >
+            <View style={{ flex: 1, ...leftTop }} />
+            <View style={{ flex: 1 }} />
+            <View style={{ flex: 1, ...leftBottom}} />
+          </View>
+          <View style={{ flex: 1 }}></View>
+          <View style={{ flex: 1, flexDirection:"row"}}>
+            <View style={{ flex: 1, ...rightTop}} />
+            <View style={{ flex: 1 }} />
+            <View style={{ flex: 1, ...rightBottom }} />
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+}
+
