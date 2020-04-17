@@ -1,0 +1,7 @@
+{
+  "name": "SirpecQR",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
