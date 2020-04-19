@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SirpecQR</string>
+    <string name="title_activity_main">SirpecQR</string>
+    <string name="package_name">com.sirpecqr.app</string>
+    <string name="custom_url_scheme">com.sirpecqr.app</string>
+</resources>

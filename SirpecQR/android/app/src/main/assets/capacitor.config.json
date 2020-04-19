@@ -1,0 +1,8 @@
+{
+  "appId": "com.sirpecqr.app",
+  "appName": "SirpecQR",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

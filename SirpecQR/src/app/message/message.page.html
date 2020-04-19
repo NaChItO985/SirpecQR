@@ -4,14 +4,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-card>
+<div #Map class="map"></div>
+
+<ion-card id="container">
   <ion-card-header>
     <ion-card-title>Ubicación</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <ion-item>Latitud: {{ latitude }}</ion-item>
-    <ion-item>Longitud: {{ longitude }}</ion-item>
-    <ion-button color="primary">Refrescar dirección</ion-button>
+    <ion-item>Latitud: {{ location.lat }}</ion-item>
+    <ion-item>Longitud: {{ location.lng }}</ion-item>    
   </ion-card-content>
   <ion-card-content id="message-content">
     <ion-card-title>Mensaje</ion-card-title>
