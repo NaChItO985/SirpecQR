@@ -1,49 +1,94 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Storage } from "@ionic/storage";
+
+
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
+
+
+
 export class AppComponent implements OnInit {
+
+@ViewChild('content', {static:true}) nav: NavController;  
+  rootPage:any;
+
   public selectedIndex = 0;
-  public appPages = [
-    {
-      title: 'Lector QR',
-      url: '/qreader',
-      icon: 'qr-code'
-    },
-    {
-      title: 'Contactos',
-      url: '/contact',
-      icon: 'heart'
-    },
-    {
-      title: 'Mensaje',
-      url: '/message',
-      icon: 'mail'
-    },
-    {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
-    },
-    {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
+
+  public appPages = [];
+
+    validateLogin(){
+      this.storage.get('session_storage').then((data)=>{
+        if(data != null){
+          this.appPages = [
+            {
+              title: 'Lector QR',
+              url: '/qreader',
+              icon: 'qr-code'
+            },
+            {
+              title: 'Contactos',
+              url: '/contact',
+              icon: 'heart'
+            },
+            {
+              title: 'Mensaje',
+              url: '/message',
+              icon: 'mail'
+            },
+            {
+              title: 'Trash',
+              url: '/folder/Trash',
+              icon: 'trash'
+            },
+            {
+              title: 'Spam',
+              url: '/folder/Spam',
+              icon: 'warning'
+            },
+            {
+              title: 'Cerrar Sesión',
+              url: '/logout',
+              icon: 'log-out'
+            }
+          ];
+        }
+        else if(data == null){
+          this.appPages = [
+            {
+              title: 'Lector QR',
+              url: '/qreader',
+              icon: 'qr-code'
+            },
+            {
+              title: 'Mensaje',
+              url: '/message',
+              icon: 'mail'
+            },
+            {
+              title: 'Iniciar Sesión',
+              url: '/login',
+              icon: 'desktop'
+            }
+          ];
+        }
+      }).catch(()=>{
+        console.log("Aray Deslogueado");
+      });
     }
-  ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar, 
+    private storage: Storage,
   ) {
     this.initializeApp();
   }
@@ -52,6 +97,7 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.validateLogin();
     });
   }
 
@@ -59,6 +105,7 @@ export class AppComponent implements OnInit {
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
+      
     }
   }
 }

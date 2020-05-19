@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-list>
+  <ion-item>
+    <ion-label position="floating">Usuario</ion-label>
+    <ion-input type="text" [(ngModel)]="username"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Contraseña</ion-label>
+    <ion-input type="text" [(ngModel)]="password"></ion-input>
+  </ion-item>
+</ion-list>
+
+<div id="btns">
+  <ion-button expand="block"  color="primary" (click)="processLogin()">Ingresar</ion-button>
+  <ion-button expand="block" padding color="tertiary" fill="outline" (click)="formRegister()">Registrarse</ion-button>
+  <ion-label></ion-label>
+</div>
+<br/>
+<div>
+  <ion-button expand="block" color="primary" (click)="retrieveSMS()">Obtener sms</ion-button>
+  <ion-button expand="block" padding color="tertiary" fill="outline" (click)="genHash()">Generar hash</ion-button>
+  <ion-label>{{hash}}</ion-label>
+</div>
+
+
+</ion-content>

@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Registrarse</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br />
+  <img src="../../assets/Logo.png" alt="Logo">
+  <br />
+  <br />
+<ion-list>
+  <ion-item>  
+    <ion-icon name="person" slot="start"></ion-icon>
+    <ion-label position="floating">Nombre</ion-label>
+    <ion-input type="text" [(ngModel)]="username"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-icon name="at" slot="start"></ion-icon>
+    <ion-label position="floating">Correo</ion-label>
+    <ion-input type="text" [(ngModel)]="email"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="key-sharp" slot="start"></ion-icon>
+    <ion-label position="floating">Contraseña</ion-label>
+    <ion-input type="password" [(ngModel)]="password"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="phone-portrait-sharp" slot="start"></ion-icon>
+    <ion-label position="floating">Celular</ion-label>
+    <ion-input type="number" [(ngModel)]="phone"></ion-input>
+  </ion-item>
+</ion-list>
+<br />
+<div id="btns">
+  <ion-button expand="block" color="primary" (click)="addRegister()">Registrarse</ion-button>
+  <br />
+  <ion-label>¿Ya posee una cuenta? Entonces, inicia sesión.</ion-label>
+  <br />
+  <ion-button expand="block" [routerLink]="['/login']" color="secondary">Iniciar sesión</ion-button>
+</div>
+
+</ion-content>

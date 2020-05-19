@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mensaje</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div #Map class="map"></div>
+
+  <ion-card id="container">
+  <ion-button (click)="getGeolocation()" expand="full">
+  <ion-icon name="location"></ion-icon> Obtener ubicación
+  </ion-button>
+  <ion-button (click)="watchLocation()" expand="full" color="success">
+  <ion-icon name="navigate"></ion-icon> Actualizar Rastreo
+  </ion-button>
+  <ion-button (click)="stopLocationWatch()" expand="full" color="danger">
+  <ion-icon name="navigate"></ion-icon>  Detener Rastreo
+  </ion-button>
+
+  <div *ngIf="geoLatitude">
+    <p>Latitud : {{geoLatitude}}</p>
+    <p>Longitud : {{geoLongitude}}</p>
+    <p>Precisión : {{geoAccuracy}}</p>
+    <p class="address-text">
+
+      <span class="watch-text" *ngIf="isWatching; else notWatching">
+        Buscar ubicación
+      </span>
+      <ng-template #notWatching>
+        Ubicación pausada
+      </ng-template>
+
+      <br>Dirección : {{geoAddress }}
+    </p>
+  </div>    
+  </ion-card>
+<footer>
+    <ion-item>
+      <ion-icon name="mail" slot="start"></ion-icon>
+      <ion-label position="floating">Mensaje a ingresar</ion-label>
+      <ion-textarea id="messageTA" [(ngModel)]="messageTA"></ion-textarea>
+      <ion-button color="success" fill="outline" slot="end" (click)="sendSMS()">Enviar</ion-button>
+    </ion-item>
+</footer>
+  
+
+

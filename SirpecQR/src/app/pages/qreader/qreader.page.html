@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar mode="ios" color="primary">
+      <ion-menu-button id="imenu" color="light"></ion-menu-button>
+    <ion-title>Lector QR</ion-title>
+  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-content>
+<ion-card>
+  <img src="../../../assets/images/Qreader-Image.jpg" id="image" />
+  <ion-card-header>
+    <p>Presione el botón para escanear el código del paciente</p>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-button expand="block" (click)="scanCode()" color="primary">
+      <ion-icon name="scan-circle-outline"></ion-icon>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-button>
+  </ion-card-content>
+</ion-card>
+</ion-content>
+
+  <ion-card *ngIf="scannedCode" id="Datos">  
+    <ion-card-header>
+      <ion-card-subtitle>La información del qr es:</ion-card-subtitle>  
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{ scannedCode }}
+    </ion-card-content>
+    
+    <ion-card-subtitle>¿Deseas enviar un mensaje al contacto o llamar al familiar?</ion-card-subtitle>
+    <br/>
+      <ion-button expand="block" [routerLink]="['/message']" color="success">
+        <ion-icon name="mail-unread"></ion-icon> 
+        Escribir mensaje
+        <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+      </ion-button>
+      <ion-button expand="block" color="danger" (click)="call()">
+        <ion-icon name="call"></ion-icon>
+        Llamar
+        <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+      </ion-button>
+</ion-card>
+
+</ion-content>

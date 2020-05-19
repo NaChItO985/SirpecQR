@@ -13,16 +13,32 @@ const routes: Routes = [
   },
   {
     path: 'qreader',
-    loadChildren: () => import('./qreader/qreader.module').then( m => m.QreaderPageModule)
+    loadChildren: () => import('./pages/qreader/qreader.module').then( m => m.QreaderPageModule)
   },
   {
     path: 'message',
-    loadChildren: () => import('./message/message.module').then( m => m.MessagePageModule)
+    loadChildren: () => import('./pages/message/message.module').then( m => m.MessagePageModule)
   },
   {
     path: 'contact',
-    loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule)
-  }
+    loadChildren: () => import('./pages/contact/contact.module').then( m => m.ContactPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'welcome',
+    loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule)
+  },
+  {
+    path: 'logout',
+    loadChildren: () => import('./pages/logout/logout.module').then( m => m.LogoutPageModule)
+  },
 ];
 
 @NgModule({

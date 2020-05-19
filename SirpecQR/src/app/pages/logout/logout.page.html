@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Cerrar sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen>
+  <ion-card>
+    <img src="../../../assets/images/scooter-logout.jpg" alt="Logout"/>
+    <ion-card-header id="letras">
+      <ion-card-title><ion-icon name="log-out-outline"></ion-icon>Cerrar Sesión</ion-card-title>
+      <br/>
+      <ion-card-subtitle>Gracias por utilizar SirpecQR.</ion-card-subtitle>
+      <br/>
+      <ion-card-subtitle>¿Desea cerrar la sesión?</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button expand="block" color="success" (click)="logout()">Sí</ion-button>
+      <ion-button expand="block" color="danger" (click)="NonlogOut()">No</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
