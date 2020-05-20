@@ -4,9 +4,10 @@ import { ToastController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { AlertController } from '@ionic/angular';
-import { analyzeNgModules } from '@angular/compiler';
+import { ActionSheetController } from '@ionic/angular';
 import { HttpService } from 'src/app/services/http.service';
 import { Observable } from 'rxjs';
+
 
 
 
@@ -19,14 +20,27 @@ export class QreaderPage implements OnInit {
 
   sendData:any;
   scannedCode = ""; 
-  documento = "";
+  documento = "";  
+  
+  phoneC1="";
+  phoneM1="";
+  phoneR1:any;
+  phoneN1:any;
 
+
+  phoneC2="";
+  phoneM2="";
+  phoneR2: any;
+  phoneN2: any;
+  
+  
   constructor(private barcodeScanner:BarcodeScanner,
     private toastCtrl: ToastController,
     private router: Router,
     private callSvc: CallNumber,
     public alertCtrl: AlertController,
-    public http: HttpService
+    public http: HttpService,
+    public acCtrl: ActionSheetController
     ){}
 
   navigate(){
@@ -37,50 +51,14 @@ export class QreaderPage implements OnInit {
      this.barcodeScanner.scan().then(
       async barcodeData =>{
         this.scannedCode = barcodeData.text; // Información que lee del qr
-        this.documento = this.scannedCode.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
-         this.sendData.parseInt(this.documento);
-
-        let data: Observable<any> = this.http.post("api/getPhones", this.sendData);
-        data.subscribe( async (res)=>{
-          const alert = await this.alertCtrl.create({
-            message: '¿Qué número desea llamar?',
-            buttons: [
-              {
-                text: res.celular,
-                role: 'confirm',
-                cssClass: 'light',
-                handler: () => {
-                  this.call(res.celular);
-                }
-              }, {
-                text: res.celular,
-                role: 'confirm',
-                cssClass: 'light',
-                handler: () => {
-                  this.call(res.celular);
-                }
-              }, {
-                text: 'Cancel',
-                role: 'cancel',
-                cssClass: 'danger',
-                handler: () => {
-                  console.log('Confirm Cancel');
-                }
-              } 
-            ],
-            mode:"ios"
-          });
-
-          await alert.present();
-
-        })
-
+        
         if(this.scannedCode){
           let toast = await this.toastCtrl.create({
             header: 'Información leída correctamente',
             color:'success',
             duration: 3000,
-            mode:"ios"
+            mode:"ios",
+            position:"top"
           });
           toast.present();
         }
@@ -88,13 +66,68 @@ export class QreaderPage implements OnInit {
     ), err=> console.log('Error: ', err);
   }
 
-  call(celular){
-    this.callSvc
-      .callNumber("+57" + celular , true).then(()=>{
-        console.log('call worked');
-      }).catch((err)=>{
-        alert(JSON.stringify(err));
-      })
+  call(){
+    
+    this.documento = this.scannedCode.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
+    console.log(this.documento + " Expresión regular del QR");
+    this.sendData = parseInt(this.documento); // Conversión a entero del string obtenido de la expresión regular
+    console.log(this.sendData + " Entero del this.documento obtenido del QR ");
+
+    
+    let data: Observable<any> = this.http.post("api/getPhones", this.sendData);
+    data.subscribe(async (res) => {        
+
+      console.log(JSON.stringify(res) + "Dato obtenido del response");
+      
+      res = JSON.stringify(res);
+
+     // Match del response para obtener los celulares, pasando a string y convirtiendo a número para las llamadas 
+      this.phoneC1 = res.match(/("celular":[0-9])\w+/g);
+      this.phoneM1 = this.phoneC1.toString();
+      this.phoneR1 = this.phoneM1.match(/([0-9]\w)+/g);
+      this.phoneN1 = parseInt(this.phoneR1);
+      
+      this.phoneC2 = res.match(/("celular_2":[0-9])\w+/g);
+      this.phoneM2 = this.phoneC2.toString();
+      this.phoneR2 = this.phoneM2.match(/([0-9]\w)+/g);
+      this.phoneN2 = parseInt(this.phoneR2);
+     
+      
+
+     const actionSheet = await this.acCtrl.create({
+        header: '¿Qué número desea llamar?',
+        buttons: [{
+          text: this.phoneN1,
+          icon: 'phone-portrait-outline',
+          handler: () => {
+            this.callSvc.callNumber("+57" + this.phoneN1, true).then(() => {
+                console.log('call worked');
+              }).catch((err) => {
+                alert(JSON.stringify(err));
+              })
+          }
+        }, {
+          text: this.phoneN2,
+          icon: 'phone-portrait-outline',
+          handler: () => {
+            this.callSvc.callNumber("+57" + this.phoneN2, true).then(() => {
+              console.log('call worked');
+            }).catch((err) => {
+              alert(JSON.stringify(err));
+            })
+          }
+        }, {
+          text: 'Cancelar',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }],
+        mode: "ios"
+      });
+      actionSheet.present();
+    });
   }
 
   ngOnInit() {

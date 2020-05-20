@@ -34,7 +34,15 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
-  
+
+  async  ionViewWillLeave() {
+    const loading = await this.loader.create({
+      message: 'Por favor espere...',
+      duration: 1000
+    });
+    location.reload();
+    await loading.present();
+  }
 
 
   async messageE(msg) {
@@ -79,7 +87,6 @@ export class LoginPage implements OnInit {
       let data: Observable<any> = this.http.post("api/validateUser", this.postData);
       data.subscribe((res) => {
         if(res.IDUsuario != null){
-          this.messageS("¡Bienvenido a sirpecQR!");
           this.storage.set('session_storage', res.IDUsuario);
           this.navCtrl.navigateRoot('/welcome');
           this.appComp.validateLogin();

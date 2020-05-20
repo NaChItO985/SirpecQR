@@ -1,5 +1,6 @@
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
+  font-family: 'Raleway';
 }
 
 ion-menu.md ion-content {
@@ -29,7 +30,6 @@ ion-menu.md ion-list#inbox-list {
 ion-menu.md ion-list#inbox-list ion-list-header {
   font-size: 22px;
   font-weight: 600;
-
   min-height: 20px;
 }
 
@@ -47,6 +47,7 @@ ion-menu.md ion-item {
   --padding-start: 10px;
   --padding-end: 10px;
   border-radius: 4px;
+  font-family: 'Raleway';
 }
 
 ion-menu.md ion-item.selected {
@@ -62,6 +63,7 @@ ion-menu.md ion-item ion-icon {
 }
 
 ion-menu.md ion-item ion-label {
+  font-family: 'Raleway';
   font-weight: 500;
 }
 
@@ -82,6 +84,7 @@ ion-menu.ios ion-item {
   --padding-start: 16px;
   --padding-end: 16px;
   --min-height: 50px;
+  font-family: 'Raleway';
 }
 
 ion-menu.ios ion-item.selected ion-icon {

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:14000/'
+  apiUrl: 'https://universidaduninpahu.azurewebsites.net/'
 };
 
 /*
