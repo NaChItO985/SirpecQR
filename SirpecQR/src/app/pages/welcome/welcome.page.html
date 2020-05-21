@@ -8,7 +8,7 @@
   <ion-card id="wcard">
     <img src="../../../assets/images/Welcome-Image.jpg" id="image" />
     <ion-card-header>
-      <ion-card-title>¡Hola usuario!</ion-card-title>
+      <ion-card-title *ngFor="let name of names">¡Hola {{name.nombre}}!</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       Bienvenido a SirpecQR la plataforma de emergencia      

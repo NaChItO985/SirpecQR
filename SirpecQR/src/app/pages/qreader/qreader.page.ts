@@ -30,8 +30,18 @@ export class QreaderPage implements OnInit {
 
   phoneC2="";
   phoneM2="";
-  phoneR2: any;
-  phoneN2: any;
+  phoneR2:any;
+  phoneN2:any;
+
+  phoneC3="";
+  phoneM3="";
+  phoneR3:any;
+  phoneN3:any;
+
+  phoneC4="";
+  phoneM4="";
+  phoneR4:any;
+  phoneN4:any;
   
   
   constructor(private barcodeScanner:BarcodeScanner,
@@ -81,18 +91,62 @@ export class QreaderPage implements OnInit {
       
       res = JSON.stringify(res);
 
+
      // Match del response para obtener los celulares, pasando a string y convirtiendo a número para las llamadas 
+     // Validación cuando es un número o varios digitos
+
       this.phoneC1 = res.match(/("celular":[0-9])\w+/g);
-      this.phoneM1 = this.phoneC1.toString();
-      this.phoneR1 = this.phoneM1.match(/([0-9]\w)+/g);
-      this.phoneN1 = parseInt(this.phoneR1);
+      if(this.phoneC1 != null || undefined){
+        this.phoneM1 = this.phoneC1.toString();
+        this.phoneR1 = this.phoneM1.match(/([0-9]\w)+/g);
+        this.phoneN1 = parseInt(this.phoneR1);
+      }
+      else{
+        this.phoneC1 = res.match(/("celular":[0-9])/g);
+        this.phoneM1 = this.phoneC1.toString();
+        this.phoneR1 = this.phoneM1.match(/([0-9])/g);
+        this.phoneN1 = parseInt(this.phoneR1);
+      }
       
+
       this.phoneC2 = res.match(/("celular_2":[0-9])\w+/g);
+      if (this.phoneC2 != null || undefined) {
       this.phoneM2 = this.phoneC2.toString();
       this.phoneR2 = this.phoneM2.match(/([0-9]\w)+/g);
       this.phoneN2 = parseInt(this.phoneR2);
-     
+      }
+      else{
+        this.phoneC2 = res.match(/("celular_2":[0-9])/g);
+        this.phoneM2 = this.phoneC2.toString();
+        this.phoneR2 = this.phoneM2.match(/([0-9])/g);
+        this.phoneN2 = parseInt(this.phoneR2);
+      }
+
+      this.phoneC3 = res.match(/("telefono":[0-9])\w+/g);
+      if (this.phoneC3 != null || undefined){
+        this.phoneM3 = this.phoneC3.toString();
+        this.phoneR3 = this.phoneM3.match(/([0-9]\w)+/g);
+        this.phoneN3 = parseInt(this.phoneR3);
+      }
+      else{
+        this.phoneC3 = res.match(/("telefono":[0-9])/g);
+        this.phoneM3 = this.phoneC3.toString();
+        this.phoneR3 = this.phoneM3.match(/([0-9])/g);
+        this.phoneN3 = parseInt(this.phoneR3);        
+      }
       
+      this.phoneC4 = res.match(/("tel_laboral":[0-9])\w+/g);
+      if(this.phoneC4 != null || undefined){
+      this.phoneM4 = this.phoneC4.toString();
+      this.phoneR4 = this.phoneM4.match(/([0-9]\w)+/g);
+      this.phoneN4 = parseInt(this.phoneR4);
+      }
+      else{
+        this.phoneC4 = res.match(/("tel_laboral":[0-9])/g);
+        this.phoneM4 = this.phoneC4.toString();
+        this.phoneR4 = this.phoneM4.match(/([0-9])/g);
+        this.phoneN4 = parseInt(this.phoneR4);    
+      }
 
      const actionSheet = await this.acCtrl.create({
         header: '¿Qué número desea llamar?',
@@ -116,7 +170,27 @@ export class QreaderPage implements OnInit {
               alert(JSON.stringify(err));
             })
           }
-        }, {
+          }, {
+            text: this.phoneN3,
+            icon: 'call-outline',
+            handler: () => {
+              this.callSvc.callNumber("031" + this.phoneN3, true).then(() => {
+                console.log('call worked');
+              }).catch((err) => {
+                alert(JSON.stringify(err));
+              })
+            }
+          }, {
+            text: this.phoneN4,
+            icon: 'business-outline',
+            handler: () => {
+              this.callSvc.callNumber("031" + this.phoneN4, true).then(() => {
+                console.log('call worked');
+              }).catch((err) => {
+                alert(JSON.stringify(err));
+              })
+            }
+          }, {
           text: 'Cancelar',
           icon: 'close',
           role: 'cancel',

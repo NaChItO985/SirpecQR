@@ -1,9 +1,68 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>contact</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Perfil</ion-title>
+    <ion-menu-button id="imenu" color="light"></ion-menu-button>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+  <ion-card>
+    <ion-item>
+      <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+      <ion-label color="primary">Datos de contacto</ion-label>
+      <ion-button fill="outline" slot="end" (click)="updatePhones()">Actualizar</ion-button>
+    </ion-item>
+    <br/>
+    <ion-list>
+      <ion-item>
+        <ion-icon name="finger-print" slot="start"></ion-icon>
+      <ion-input value="Documento: {{document.id_documento}}" readonly *ngFor="let document of documents"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="phone-portrait-outline" slot="start"></ion-icon>
+        <ion-input type="number" autocomplete="off" placeholder="Celular" name="cel_1" [(ngModel)]="update.celular"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="phone-portrait-outline" slot="start"></ion-icon>
+        <ion-input type="number" autocomplete="off" placeholder="Celular 2" name="cel_2" [(ngModel)]="update.celular_2"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="call-outline" slot="start"></ion-icon>
+        <ion-input type="number" autocomplete="off" placeholder="Telefono" name="tel" [(ngModel)]="update.telefono"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="business-outline" slot="start"></ion-icon>
+        <ion-input type="number" autocomplete="off" placeholder="Telefono Laboral" name="tel_lab" [(ngModel)]="update.tel_laboral"></ion-input>
+      </ion-item>
+      <br/>
+      <div id="DataUsers">
+      <ion-label id="note">¡Recuerda actualizar el qr en la página para los lectores!</ion-label>
+      </div>      
+    </ion-list>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+      <ion-label color="primary">Datos de sesión</ion-label>
+      <ion-button fill="outline" slot="end" (click)="updatePassword()">Actualizar</ion-button>
+    </ion-item>
+    <br/>
+    <ion-list>
+    <ion-item>
+      <ion-icon name="key-sharp" slot="start"></ion-icon>
+      <ion-input type="password" placeholder="Contraseña" name="password" [(ngModel)]="session.contrasena"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="key-sharp" slot="start"></ion-icon>
+      <ion-input type="password"  placeholder="Confirmar contraseña" name="password" [(ngModel)]="validate.ccontrasena"></ion-input>
+    </ion-item>
+    <br />
+    <br />
+    </ion-list>
+  </ion-card>
 </ion-content>
+
+ <!--
+</ion-list>
+<ion-item>
+  <ion-button expand="block" color="secondary" (click)="loginAction()">Iniciar Sesión</ion-button>
+</ion-item>-->

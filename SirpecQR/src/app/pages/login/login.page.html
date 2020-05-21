@@ -24,8 +24,8 @@
 </ion-list>
 <br/>
 <div id="btns">
-  <ion-button expand="block"  color="secondary" (click)="loginAction()">Iniciar Sesión</ion-button>
+  <ion-button expand="block"  color="primary" (click)="loginAction()">Iniciar Sesión</ion-button>
   <br/>
-  <ion-label>¿Ha olvidado su contraseña?</ion-label>
+  <ion-label [routerLink]="['/reset-password']" color="primary">¿Ha olvidado su contraseña?</ion-label>
 </div>
 </ion-content>

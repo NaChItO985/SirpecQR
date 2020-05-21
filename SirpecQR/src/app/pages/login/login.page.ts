@@ -35,15 +35,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  async  ionViewWillLeave() {
-    const loading = await this.loader.create({
-      message: 'Por favor espere...',
-      duration: 1000
-    });
-    location.reload();
-    await loading.present();
-  }
-
 
   async messageE(msg) {
     const toast = await this.toastCtrl.create({
@@ -67,7 +58,7 @@ export class LoginPage implements OnInit {
   async loaders() {
     const loading = await this.loader.create({
       message: 'Espere por favor',
-      duration: 2000,
+      duration: 1000,
       mode:"ios"
     });
     await loading.present()

@@ -34,9 +34,9 @@ export class AppComponent implements OnInit {
               icon: 'qr-code'
             },
             {
-              title: 'Contactos',
+              title: 'Perfil',
               url: '/contact',
-              icon: 'heart'
+              icon: 'person-circle'
             },
             {
               title: 'Mensaje',

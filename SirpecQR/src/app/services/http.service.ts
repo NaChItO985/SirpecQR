@@ -23,6 +23,7 @@ export class HttpService {
     const url = environment.apiUrl + serviceName;
     return this.http.post(url, JSON.stringify(data), header);
   }
+
 }
 
 //headers: { "Content-Type": "application/json" }
