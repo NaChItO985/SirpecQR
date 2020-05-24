@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
-import { ToastController, LoadingController } from '@ionic/angular';
+import { ToastController, LoadingController, NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
 
@@ -12,13 +12,24 @@ import { Observable } from 'rxjs';
 export class ContactPage implements OnInit {
 
   documents:any;
+  phones:any;
 
   data(){
+    // Carga el campo de documento.
     this.storage.get('session_storage').then((res) => {
+      this.update.id_usuario = res;
       this.http.post('api/getUpdate', res).subscribe((res) => {
-        this.documents = res;
+        this.documents = res;        
       })
     });
+    // Carga los campos del formulario con sus respectivos teléfonos
+    this.storage.get('session_storage').then((res)=>{
+      this.http.post('api/getUpdate', res).subscribe((res)=>{
+        this.http.post('api/getPhones', res[0].id_documento).subscribe((res)=>{
+          this.phones = res;
+        })
+      })
+    })
   }
 
   public validate = {
@@ -42,7 +53,8 @@ export class ContactPage implements OnInit {
     public http:HttpService,
     public toastCtrl:ToastController,
     public loader: LoadingController,
-    public storage: Storage
+    public storage: Storage,
+    public navCtrl: NavController
   ) { }
 
   async messageS(msg) {
@@ -64,114 +76,71 @@ export class ContactPage implements OnInit {
     });
     toast.present();
   }
-  
   async loaders() {
     const loading = await this.loader.create({
       message: 'Espere por favor',
-      duration: 1000,
+      duration: 500,
       mode: "ios"
     });
     await loading.present()
   }
 
     async updatePhones(){
-      this.storage.get('session_storage').then((res) => {
-        this.update.id_usuario = res;
-        console.log(this.update.id_usuario + " Usuario");
-      });
+
       if (this.update.celular == null){
         this.messageE('Celular es obligatorio.')
       }
-      // Validación campo de celular, pero los otros no
-      else if (this.update.celular != null && this.update.celular_2 == null && this.update.telefono == null && this.update.tel_laboral == null){
+      else{
         this.loaders();
+          // Genera un for que lee las validaciones de campos consultandolos en la base de datos
+              for (let p of this.phones) {
+                if(this.update.celular_2 != null || undefined){
+                  this.update.celular_2;
+                }
+                else if (this.update.celular_2 == null || undefined) {
+                  this.update.celular_2 = p.celular_2;                  
+                }
+                else{
+                  this.update.celular_2 = 0;
+                }
+                if (this.update.telefono != null || undefined) {
+                  this.update.telefono;                 
+                }
+                else if (this.update.telefono == null || undefined) {
+                  this.update.telefono = p.telefono;
+                }
+                else {
+                  this.update.telefono = 0;                  
+                }
+                if (this.update.tel_laboral != null || undefined) {
+                  this.update.tel_laboral;
+                }
+                else if (this.update.tel_laboral == null || undefined) {
+                  this.update.tel_laboral = p.tel_laboral;
+                }
+                else {
+                  this.update.tel_laboral = 0;
+                }
+              }
 
-        let data: Observable<any> = this.http.post("api/userUpdate", this.update.celular);
-        data.subscribe((res) => {
-          console.log(res);
-          if (res != null || undefined) {
-            this.messageS(res);
+          if (this.update == null || undefined) {
+            this.messageE("Error al actualizar los datos")
           }
           else {
-            this.messageE("Lo sentimos, error de red.");
+            let data: Observable<any> = this.http.post("api/userUpdate", this.update);
+            data.subscribe((res) => {
+              if (res != null || undefined) {
+                this.navCtrl.navigateRoot('/qreader');
+                this.messageS("Los datos se actualizaron correctamente");
+              }
+              else {
+                this.messageE("Lo sentimos, error de red.");
+              }
+            }, () => {
+              this.messageE("Error al actualizar los datos else");
+            }
+            );
           }
-        }, () => {
-          this.messageE("Error al actualizar los datos");
-        }
-        );
-      }
-      // Validación campo de celular y  celular_2 es digitado, pero los otros no
-      else if (this.update.celular != null && this.update.celular_2 != null && this.update.telefono == null && this.update.tel_laboral == null) {
-        this.update.telefono = 0;
-        this.update.tel_laboral = 0;
-
-        this.loaders();
-        let data: Observable<any> = this.http.post("api/userUpdate", this.update);
-        data.subscribe((res) => {
-          console.log(res);
-          if (res != null || undefined) {
-            this.messageS(res);
-            this.update = null;
-          }
-          else {
-            this.messageE("Lo sentimos, error de red.");
-          }
-        }, () => {
-          this.messageE("Error al actualizar los datos");
-        }
-        );
-      }
-      // Validación campo de celular y  telefono es digitado, pero los otros no
-      else if (this.update.celular != null && this.update.celular_2 == null && this.update.telefono != null && this.update.tel_laboral == null) {
-        this.update.celular_2 = 0;
-        this.update.tel_laboral = 0;
-
-        this.loaders();
-        let data: Observable<any> = this.http.post("api/userUpdate", this.update);
-        data.subscribe((res) => {
-          console.log(res);
-          if (res != null || undefined) {
-            this.messageS(res);
-            this.update.celular_2 = null;
-            this.update.telefono = null;
-            this.update.tel_laboral = null;
-          }
-          else {
-            this.messageE("Lo sentimos, error de red.");
-          }
-        }, () => {
-          this.messageE("Error al actualizar los datos");
-        }
-        );
-      }
-      // Validación campo de celular y  tel_laboral es digitado, pero los otros no
-      else if (this.update.celular != null && this.update.celular_2 == null && this.update.telefono == null && this.update.tel_laboral != null) {
-        this.update.celular_2 = 0;
-        this.update.telefono = 0;
-
-        this.loaders();
-        let data: Observable<any> = this.http.post("api/userUpdate", this.update);
-        data.subscribe((res) => {
-          console.log(res);
-          if (res != null || undefined) {
-            this.messageS(res);
-            this.update.celular_2 = null;
-            this.update.telefono = null;
-            this.update.tel_laboral = null;
-          }
-          else {
-            this.messageE("Lo sentimos, error de red.");
-          }
-        }, () => {
-          this.messageE("Error al actualizar los datos");
-        }
-        );
-      }
-      else if (this.update.celular == null && this.update.celular_2 == null && this.update.telefono == null && this.update.tel_laboral == null) {
-        this.messageE('Por favor digite un dato a actualizar.')
-      }
-      else ()=>{
-        console.log("Prueba");
       }
     }
   

@@ -7,10 +7,17 @@
     padding-top: 2%;
     padding-bottom: 3%;
 }
+#note-title{
+    color: red;
+    font-weight: bold;
+}
 #note{
     color: red;
 }
 
+#notes{
+    z-index: -2;
+}
 #imenu{
   top:2%;
   right: 2%;

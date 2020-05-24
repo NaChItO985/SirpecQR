@@ -43,7 +43,9 @@ export class QreaderPage implements OnInit {
   phoneR4:any;
   phoneN4:any;
   
-  
+  phones:any;
+
+
   constructor(private barcodeScanner:BarcodeScanner,
     private toastCtrl: ToastController,
     private router: Router,
@@ -76,7 +78,7 @@ export class QreaderPage implements OnInit {
     ), err=> console.log('Error: ', err);
   }
 
-  call(){
+  async call(){
     
     this.documento = this.scannedCode.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
     console.log(this.documento + " Expresión regular del QR");
@@ -89,12 +91,14 @@ export class QreaderPage implements OnInit {
 
       console.log(JSON.stringify(res) + "Dato obtenido del response");
       
-      res = JSON.stringify(res);
+      //res = JSON.stringify(res);
+
+      this.phones = res;
 
 
      // Match del response para obtener los celulares, pasando a string y convirtiendo a número para las llamadas 
      // Validación cuando es un número o varios digitos
-
+/*
       this.phoneC1 = res.match(/("celular":[0-9])\w+/g);
       if(this.phoneC1 != null || undefined){
         this.phoneM1 = this.phoneC1.toString();
@@ -200,7 +204,55 @@ export class QreaderPage implements OnInit {
         }],
         mode: "ios"
       });
+      actionSheet.present();*/
+
+      for (var p in this.phones) {
+        console.log(p, this.phones[1]);
+        if(this.phones[p] != null || undefined || 0){
+          this.phones[p];
+        }
+        else{
+          this.phones[p] = null;
+          console.log("No hay números registrados")
+        }
+      }
+
+
+      if (this.phones[1] != null || undefined || 0) {
+      const actionSheet = await this.acCtrl.create({
+        header: '¿Qué número desea llamar?',
+        buttons: [{
+          text: this.phoneN1[1],
+          icon: 'phone-portrait-outline',
+          handler: () => {
+            this.callSvc.callNumber("+57" + this.phones[1], true).then(() => {
+              console.log('call worked');
+            }).catch((err) => {
+              alert(JSON.stringify(err));
+            })
+          }
+        },
+          {
+            text: 'Cancelar',
+            icon: 'close',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }],
+        mode: "ios"
+      });
       actionSheet.present();
+    } else{
+        let toast = await this.toastCtrl.create({
+          header: 'No se encuentran número registrados',
+          color: 'danger',
+          duration: 2000,
+          mode: "ios",
+          position: "top"
+        });
+        toast.present();
+      }
     });
   }
 
