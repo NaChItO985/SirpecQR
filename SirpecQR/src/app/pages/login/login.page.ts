@@ -15,9 +15,6 @@ import { AppComponent } from '../../app.component';
 })
 export class LoginPage implements OnInit {
 
-  //public regExp = new RegExp('/\d/', 'g'); 
-  
-
   public postData = {
     id_documento: null,
     contrasena: "",

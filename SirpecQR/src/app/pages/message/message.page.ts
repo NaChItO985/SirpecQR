@@ -1,12 +1,9 @@
 import { Component, ElementRef, NgZone, ViewChild, OnInit } from "@angular/core";
-import { SplashScreen } from "@ionic-native/splash-screen/ngx";
-import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { NativeGeocoderOptions, NativeGeocoderResult, NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
-import { ToastController, Platform } from '@ionic/angular';
-import { async } from 'rxjs/internal/scheduler/async';
+import { ToastController, Platform, LoadingController } from '@ionic/angular';
 import { SMS } from "@ionic-native/sms/ngx";
-import { FormsModule } from "@angular/forms";
+
 
 
 declare var google: any;
@@ -32,7 +29,8 @@ export class MessagePage implements OnInit {
     public nativeGeocoder: NativeGeocoder,
     private toastCtrl: ToastController,
     public platform: Platform,
-    private sms: SMS
+    private sms: SMS,
+    private loader: LoadingController,
   ) {
     /*load google map script dynamically */
     const script = document.createElement("script");
@@ -142,12 +140,21 @@ export class MessagePage implements OnInit {
     this.watchLocationUpdates.unsubscribe();
   }
 
+  async loaders() {
+    const loading = await this.loader.create({
+      message: 'Espere por favor',
+      duration: 1000,
+      mode: "ios"
+    });
+    this.messageTA = "";
+    await loading.present()
+  }
+
+/*
   messageTA = "";
     sendSMS() {
-    this.sms
-      .send("+573232750366", this.messageTA)
-      .then(async() => {
-        let toast = await this.toastCtrl.create({
+    this.sms.send("+573232750366", this.messageTA).then(async() => {
+        /*let toast = await this.toastCtrl.create({
           header: 'Mensaje enviado correctamente',
           duration: 2000,
           position: 'bottom',
@@ -155,12 +162,18 @@ export class MessagePage implements OnInit {
           color:'success'
         });
         toast.present();
-        this.messageTA = "";
-      })
+      }) 
       .catch((err) => {
         alert(JSON.stringify(err));
       });
+    });
+      this.loaders();
   }
+  */
+  messageTA = "";
+  sendSMS() {
+      }
 
-  ngOnInit() {}
+
+ngOnInit() {}
 }

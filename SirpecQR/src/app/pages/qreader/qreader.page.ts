@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { ToastController, NavController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { AlertController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { HttpService } from 'src/app/services/http.service';
 import { Observable } from 'rxjs';
-
-
-
 
 @Component({
   selector: "app-qreader",
@@ -21,27 +18,6 @@ export class QreaderPage implements OnInit {
   sendData:any;
   scannedCode = ""; 
   documento = "";  
-  
-  phoneC1="";
-  phoneM1="";
-  phoneR1:any;
-  phoneN1:any;
-
-
-  phoneC2="";
-  phoneM2="";
-  phoneR2:any;
-  phoneN2:any;
-
-  phoneC3="";
-  phoneM3="";
-  phoneR3:any;
-  phoneN3:any;
-
-  phoneC4="";
-  phoneM4="";
-  phoneR4:any;
-  phoneN4:any;
   
   constructor(private barcodeScanner:BarcodeScanner,
     private toastCtrl: ToastController,
@@ -77,9 +53,7 @@ export class QreaderPage implements OnInit {
 
   async call(){
     this.documento = this.scannedCode.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
-    console.log(this.documento + " Expresión regular del QR");
     this.sendData = parseInt(this.documento); // Conversión a entero del string obtenido de la expresión regular
-    console.log(this.sendData + " Entero del this.documento obtenido del QR ");
     
     if(this.sendData == 0 || null || undefined){
       let toast = await this.toastCtrl.create({
@@ -94,7 +68,6 @@ export class QreaderPage implements OnInit {
     else{
     let data: Observable<any> = this.http.post("api/getPhones", this.sendData);
     data.subscribe(async (res) => {        
-      
       res.forEach(async phone => {
           const actionSheet = await this.acCtrl.create({
             header: '¿Qué número desea llamar?',

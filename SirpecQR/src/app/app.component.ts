@@ -68,9 +68,9 @@ export class AppComponent implements OnInit {
               icon: 'qr-code'
             },
             {
-              title: 'Mensaje',
-              url: '/message',
-              icon: 'mail'
+              title: 'Alergias',
+              url: '/folder/Spam',
+              icon: 'warning'
             },
             {
               title: 'Iniciar Sesión',
