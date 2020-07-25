@@ -30,5 +30,4 @@ export class WelcomePage implements OnInit {
   ngOnInit() {
     this.user();
   }
-
 }

@@ -35,7 +35,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-
   async messageE(msg) {
     const toast = await this.toastCtrl.create({
       header: msg,
@@ -62,6 +61,7 @@ export class LoginPage implements OnInit {
       mode:"ios"
     });
     await loading.present()
+    location.reload();
   }
 
    async loginAction() {
@@ -79,8 +79,8 @@ export class LoginPage implements OnInit {
       data.subscribe((res) => {
         if(res.IDUsuario != null){
           this.storage.set('session_storage', res.IDUsuario);
+          this.loaders();
           this.navCtrl.navigateRoot('/welcome');
-          location.reload();
           this.appComp.validateLogin();
         }
         else{
