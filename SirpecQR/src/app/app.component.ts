@@ -44,12 +44,12 @@ export class AppComponent implements OnInit {
               icon: 'mail'
             },
             {
-              title: 'Trash',
+              title: 'Enfermedades',
               url: '/folder/Trash',
-              icon: 'trash'
+              icon: 'medical'
             },
             {
-              title: 'Spam',
+              title: 'Alergias',
               url: '/folder/Spam',
               icon: 'warning'
             },

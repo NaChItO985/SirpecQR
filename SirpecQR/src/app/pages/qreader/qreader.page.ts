@@ -61,7 +61,7 @@ export class QreaderPage implements OnInit {
       async barcodeData =>{
         this.scannedCode = barcodeData.text; // Información que lee del qr
         
-        if(this.scannedCode){
+        if(this.scannedCode != null || undefined){
           let toast = await this.toastCtrl.create({
             header: 'Información leída correctamente',
             color:'success',
@@ -76,13 +76,22 @@ export class QreaderPage implements OnInit {
   }
 
   async call(){
-    
     this.documento = this.scannedCode.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
     console.log(this.documento + " Expresión regular del QR");
     this.sendData = parseInt(this.documento); // Conversión a entero del string obtenido de la expresión regular
     console.log(this.sendData + " Entero del this.documento obtenido del QR ");
-
     
+    if(this.sendData == 0 || null || undefined){
+      let toast = await this.toastCtrl.create({
+        header: 'El documento no está registrado',
+        color: 'danger',
+        duration: 3000,
+        mode: "ios",
+        position: "top"
+      });
+      toast.present();
+    }
+    else{
     let data: Observable<any> = this.http.post("api/getPhones", this.sendData);
     data.subscribe(async (res) => {        
 
@@ -90,8 +99,6 @@ export class QreaderPage implements OnInit {
       console.log(JSON.stringify(res) + " Dato obtenido del response");
       
       res = JSON.stringify(res);
-
-    
 
      // Match del response para obtener los celulares, pasando a string y convirtiendo a número para las llamadas 
      // Validación cuando es un número o varios digitos
@@ -203,6 +210,7 @@ export class QreaderPage implements OnInit {
       });
       actionSheet.present();
     });
+  }
 }
 
   ngOnInit() {

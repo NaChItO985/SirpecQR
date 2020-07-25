@@ -142,20 +142,6 @@ export class MessagePage implements OnInit {
     this.watchLocationUpdates.unsubscribe();
   }
 
-  /*  async getLocation() {
-    const position = await Geolocation.getCurrentPosition();
-    this.latitude = position.coords.latitude;
-    this.longitude = position.coords.longitude;
-  }
-
-  constructor() {
-    this.getLocation();
-  }
-
-  latitude: number;
-  longitude: number;
-  */
-
   messageTA = "";
     sendSMS() {
     this.sms

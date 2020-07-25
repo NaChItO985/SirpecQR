@@ -80,6 +80,7 @@ export class LoginPage implements OnInit {
         if(res.IDUsuario != null){
           this.storage.set('session_storage', res.IDUsuario);
           this.navCtrl.navigateRoot('/welcome');
+          location.reload();
           this.appComp.validateLogin();
         }
         else{
