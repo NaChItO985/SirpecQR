@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'https://universidaduninpahu.azurewebsites.net/'
+  apiUrl: 'https://sirpecqr.azurewebsites.net/'
 };
 
 /*

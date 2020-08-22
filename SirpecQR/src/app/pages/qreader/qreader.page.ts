@@ -7,6 +7,7 @@ import { AlertController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { HttpService } from 'src/app/services/http.service';
 import { Observable } from 'rxjs';
+import { MessagedataService } from '../../services/messagedata.service';
 
 @Component({
   selector: "app-qreader",
@@ -18,6 +19,7 @@ export class QreaderPage implements OnInit {
   sendData:any;
   scannedCode = ""; 
   documento = "";  
+  blank = "";
   
   constructor(private barcodeScanner:BarcodeScanner,
     private toastCtrl: ToastController,
@@ -25,7 +27,8 @@ export class QreaderPage implements OnInit {
     private callSvc: CallNumber,
     public alertCtrl: AlertController,
     public http: HttpService,
-    public acCtrl: ActionSheetController
+    public acCtrl: ActionSheetController,
+    private MessageData: MessagedataService
     ){}
 
   navigate(){
@@ -38,6 +41,7 @@ export class QreaderPage implements OnInit {
         this.scannedCode = barcodeData.text; // Información que lee del qr
         
         if(this.scannedCode != null || undefined){
+          this.blank = this.scannedCode.match(/(,\D+)/g).toString();
           let toast = await this.toastCtrl.create({
             header: 'Información leída correctamente',
             color:'success',
@@ -125,6 +129,16 @@ export class QreaderPage implements OnInit {
       });
    }
 }
+  
+  async MessageDT(){
+      let data: Observable<any> = this.http.post("api/getPhones", this.sendData);
+        data.subscribe(async (res) => {   
+        res.forEach(async phone => {
+        this.MessageData.sendObjectSource(phone);
+        this.router.navigate(['/message']);
+        });
+      });
+  }
 
   ngOnInit() {
   }

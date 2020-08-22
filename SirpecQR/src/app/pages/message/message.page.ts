@@ -3,6 +3,7 @@ import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { NativeGeocoderOptions, NativeGeocoderResult, NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { ToastController, Platform, LoadingController } from '@ionic/angular';
 import { SMS } from "@ionic-native/sms/ngx";
+import { MessagedataService } from '../../services/messagedata.service';
 
 
 
@@ -31,6 +32,7 @@ export class MessagePage implements OnInit {
     public platform: Platform,
     private sms: SMS,
     private loader: LoadingController,
+    private MessageData: MessagedataService
   ) {
     /*load google map script dynamically */
     const script = document.createElement("script");
@@ -140,6 +142,10 @@ export class MessagePage implements OnInit {
     this.watchLocationUpdates.unsubscribe();
   }
 
+  messageTA = "";
+  MessageTS: any;
+
+
   async loaders() {
     const loading = await this.loader.create({
       message: 'Espere por favor',
@@ -150,30 +156,21 @@ export class MessagePage implements OnInit {
     await loading.present()
   }
 
-/*
-  messageTA = "";
-    sendSMS() {
-    this.sms.send("+573232750366", this.messageTA).then(async() => {
-        /*let toast = await this.toastCtrl.create({
-          header: 'Mensaje enviado correctamente',
-          duration: 2000,
-          position: 'bottom',
-          mode:"ios",
-          color:'success'
-        });
-        toast.present();
-      }) 
-      .catch((err) => {
-        alert(JSON.stringify(err));
-      });
-    });
-      this.loaders();
-  }
-  */
-  messageTA = "";
   sendSMS() {
-      }
+    this.sms.send(this.MessageTS.celular, this.messageTA);
+    this.sms.send(this.MessageTS.celular_2, this.messageTA);
+    this.loaders();
+  }
 
+  // Método para realizar las alertas dependiendo del tiempo
 
-ngOnInit() {}
+  alertTimers() {
+      
+  }
+
+  ngOnInit() {
+    this.alertTimers();
+    this.MessageData.$getObjectSource.subscribe((data) =>{this.MessageTS = data}).unsubscribe();
+  } 
+
 }

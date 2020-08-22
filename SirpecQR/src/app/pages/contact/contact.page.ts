@@ -137,7 +137,7 @@ export class ContactPage implements OnInit {
                 this.messageE("Lo sentimos, error de red.");
               }
             }, () => {
-              this.messageE("Error al actualizar los datos else");
+              this.messageE("Error al actualizar los datos");
             }
             );
           }
