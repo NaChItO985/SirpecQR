@@ -43,6 +43,18 @@ const routes: Routes = [
     path: 'reset-password',
     loadChildren: () => import('./pages/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
   },
+  {
+    path: 'diseases',
+    loadChildren: () => import('./pages/diseases/diseases.module').then( m => m.DiseasesPageModule)
+  },
+  {
+    path: 'allergies',
+    loadChildren: () => import('./pages/allergies/allergies.module').then( m => m.AllergiesPageModule)
+  },
+  {
+    path: 'tracker',
+    loadChildren: () => import('./pages/tracker/tracker.module').then( m => m.TrackerPageModule)
+  },
 ];
 
 @NgModule({

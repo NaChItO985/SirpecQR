@@ -45,13 +45,18 @@ export class AppComponent implements OnInit {
             },
             {
               title: 'Enfermedades',
-              url: '/folder/Trash',
+              url: '/diseases',
               icon: 'medical'
             },
             {
               title: 'Alergias',
-              url: '/folder/Spam',
+              url: '/allergies',
               icon: 'warning'
+            }, 
+            {
+              title: 'Seguimiento',
+              url: '/tracker',
+              icon: 'analytics'
             },
             {
               title: 'Cerrar Sesión',

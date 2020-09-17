@@ -18,6 +18,7 @@ import { SmsRetriever } from '@ionic-native/sms-retriever/ngx';
 import { HttpClientModule } from '@angular/common/http' 
 import { HttpService } from '../app/services/http.service'
 import { IonicStorageModule } from '@ionic/storage';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 
 
@@ -42,6 +43,7 @@ import { IonicStorageModule } from '@ionic/storage';
     CallNumber,
     SmsRetriever,
     HttpService,
+    LocalNotifications,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],
