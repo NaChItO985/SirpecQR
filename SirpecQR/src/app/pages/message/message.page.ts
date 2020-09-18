@@ -162,14 +162,8 @@ export class MessagePage implements OnInit {
     this.loaders();
   }
 
-  // Método para realizar las alertas dependiendo del tiempo
-
-  alertTimers() {
-      
-  }
-
+  
   ngOnInit() {
-    this.alertTimers();
     this.MessageData.$getObjectSource.subscribe((data) =>{this.MessageTS = data}).unsubscribe();
   } 
 

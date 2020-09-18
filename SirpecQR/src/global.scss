@@ -38,3 +38,33 @@
 *{
   font-family: 'Raleway';
 }
+
+@-webkit-keyframes fadeOut{
+from {
+  opacity: 1;
+}
+to {
+  opacity: 0;
+}
+}
+@keyframes fadeOut{
+  from{
+    opacity: 1;
+  }
+  to{
+    opacity: 0;
+  }
+}
+@keyframes fadeOut{
+  from{
+    opacity: 1;
+  }
+  to{
+    opacity: 0;
+  }
+}
+.fadeOut{
+  -webkit-animation: fadeOut;
+  animation: fadeOut;
+}
+

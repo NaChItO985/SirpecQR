@@ -1,15 +1,15 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Seguimiento</ion-title>
+  <ion-toolbar mode="ios" color="primary">
+    <ion-menu-button id="imenu" color="light"></ion-menu-button>
+    <ion-title>Seguimiento - Alertas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-<ion-button (click)="scheduleNotification()" expand="block" fill="clear">Schedule</ion-button>
-<ion-button (click)="recurringNotification()" expand="block" fill="clear">Every Minute</ion-button>
-<ion-button (click)="repeatingDaily()" expand="block" fill="clear">Daily</ion-button>
-<ion-button (click)="getAll()" expand="block" fill="clear">Get All</ion-button>
+<ion-button (click)="scheduleNotification()" expand="block" fill="clear">Enviar notificación</ion-button>
+<ion-button (click)="recurringNotification()" expand="block" fill="clear">Recordar notificaciones</ion-button>
+<ion-button (click)="repeatingDaily()" expand="block" fill="clear">Enviar notificaciones Diariamente</ion-button>
+<ion-button (click)="getAll()" expand="block" fill="clear">Listar las notificaciones</ion-button>
 
 <ion-list>
   <ion-item *ngFor="let n of scheduled">
@@ -21,3 +21,8 @@
 </ion-list>
 
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button (click)="help()" expand="full">Información del Modulo</ion-button>
+  </ion-toolbar>
+</ion-footer>

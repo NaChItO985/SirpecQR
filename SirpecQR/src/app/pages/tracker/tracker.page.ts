@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalNotifications, ELocalNotificationTriggerUnit } from "@ionic-native/local-notifications/ngx";
-import { AlertController, Platform } from '@ionic/angular';
-
+import { AlertController, NavController, Platform } from '@ionic/angular';
+import { MessagedataService } from "../../services/messagedata.service";
 
 
 @Component({
@@ -10,70 +9,25 @@ import { AlertController, Platform } from '@ionic/angular';
   styleUrls: ["./tracker.page.scss"],
 })
 export class TrackerPage implements OnInit {
-  scheduled =[];
-  
-  constructor(
-    private localNotifications: LocalNotifications,
-    private alertCtrl: AlertController,
-    private plt: Platform
-  ) {
-    this.plt.ready().then(()=>{
-      this.localNotifications.on('click').subscribe(res=>{
-        console.log('click', res);
-        let msg = res.data ? res.data.mydata: '';
-        this.showAlert(res.title, res.text, msg );
-      });
-      this.localNotifications.on('trigger').subscribe(res=>{
-        console.log("trigger", res);
-        let msg = res.data ? res.data.mydata : '';
-        this.showAlert(res.title, res.text, msg);
-      });
-    })
+  scheduled = [];
+  MessageTS: any;
 
+  constructor(
+    private alertCtrl: AlertController,
+    private plt: Platform,
+    private MessageData: MessagedataService,
+    private navCtrl: NavController
+  ) {}
+
+  help() {
+    this.navCtrl.navigateRoot("/slides");
   }
 
   ngOnInit() {
-
+    this.MessageData.$getObjectSource
+      .subscribe((data) => {
+        this.MessageTS = data;
+      })
+      .unsubscribe();
   }
-
-  scheduleNotification(){
-    this.localNotifications.schedule({
-      id:1,
-      title: 'Attention',
-      text: 'Simons Notification',
-      data: { mydata: 'My hidden message this is' },
-      trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND}
-    })
-  }
-  recurringNotification(){
-    this.localNotifications.schedule({
-      id: 2,
-      title: 'Recurring',
-      text: 'Simons Recurring Notification',
-      trigger: { every: ELocalNotificationTriggerUnit.MINUTE}
-    });
-  }
-  repeatingDaily(){
-    this.localNotifications.schedule({
-      id: 3,
-      title: 'Good Morning',
-      text: 'Code something epic today!',
-      trigger: { every: {hour:11, minute:49}},
-    });
-  }
-  getAll(){
-    this.localNotifications.getAll().then(res=>{
-      this.scheduled = res;
-    })
-  }
-  showAlert(header, sub, msg){
-    this.alertCtrl.create({
-      header: header,
-      subHeader: sub,
-      message: msg,
-      buttons:['OK']
-    }).then(alert=>alert.present());
-  }
-  
-
 }
