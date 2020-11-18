@@ -4,12 +4,17 @@
 }
 
 #Datos{
-    padding:5%;
+    left: 5%;
+    right: 4%;
     top:60%;
     position: fixed;
     text-align: center;
+    margin-left: auto;
 }
 
+#datosinner{
+  padding:5%;
+}
 #imenu{
   top:2%;
   right: 2%;

@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from "@ionic/storage";
 
 
+declare var window;
 
 @Component({
   selector: 'app-root',
@@ -88,6 +89,8 @@ export class AppComponent implements OnInit {
         console.log("Aray Deslogueado");
       });
     }
+    
+    arr:any;
 
   constructor(
     private platform: Platform,
@@ -95,6 +98,7 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar, 
     private storage: Storage,
   ) {
+    this.arr = [];
     this.initializeApp();
   }
 
@@ -105,6 +109,9 @@ export class AppComponent implements OnInit {
       this.validateLogin();
     });
   }
+  
+  
+  
 
   ngOnInit() {
     const path = window.location.pathname.split('folder/')[1];

@@ -4,7 +4,9 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'https://sirpecqr.azurewebsites.net/'
+  //apiUrl: 'https://sirpecqr.azurewebsites.net/'
+  //apiUrl: 'https://localhost:44318/'
+  apiUrl: 'https://sirpecqrapi.azurewebsites.net/' //-- Last change implemented on the app
 };
 
 /*

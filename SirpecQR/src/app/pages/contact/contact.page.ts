@@ -14,11 +14,20 @@ export class ContactPage implements OnInit {
   documents:any;
   phones:any;
 
+  public update ={
+    id_usuario: null,
+    celular: null,
+    celular_2: null,
+    telefono: null,
+    tel_laboral: null,
+  };
+
+
   data(){
     // Carga el campo de documento.
     this.storage.get('session_storage').then((res) => {
       this.update.id_usuario = res;
-      this.http.post('api/getUpdate', res).subscribe((res) => {
+      this.http.post('api/getUpdate',this.update.id_usuario).subscribe((res) => {
         this.documents = res;        
       })
     });
@@ -40,14 +49,6 @@ export class ContactPage implements OnInit {
     "id_usuario":null,
     contrasena: "",    
   }
-
-  public update ={
-    id_usuario: null,
-    celular: null,
-    celular_2: null,
-    telefono: null,
-    tel_laboral: null,
-  };
 
   constructor(
     public http:HttpService,

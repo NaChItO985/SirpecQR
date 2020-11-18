@@ -1,9 +1,11 @@
 import { Component, ElementRef, NgZone, ViewChild, OnInit } from "@angular/core";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { NativeGeocoderOptions, NativeGeocoderResult, NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
-import { ToastController, Platform, LoadingController } from '@ionic/angular';
+import { Platform, LoadingController, ToastController } from '@ionic/angular';
 import { SMS } from "@ionic-native/sms/ngx";
 import { MessagedataService } from '../../services/messagedata.service';
+import { Router } from '@angular/router';
+
 
 
 
@@ -22,17 +24,22 @@ export class MessagePage implements OnInit {
   location = { lat: null, lng: null };
   markerOptions: any = { position: null, map: null, title: null };
   marker: any;
-  apiKey: any = "AIzaSyCrZxY3Gw6b0Hga0k-JGXrNZBxFYjShZX8"; /*Your API Key*/
+  apiKey: any = "AIzaSyDwHp0f0c0T9gPA4KWtPSOyRAaCAaC2xJQ"; /*Your API Key*/
+  
+
+  
+
 
   constructor(
     public zone: NgZone,
     public geolocation: Geolocation,
     public nativeGeocoder: NativeGeocoder,
-    private toastCtrl: ToastController,
     public platform: Platform,
     private sms: SMS,
     private loader: LoadingController,
-    private MessageData: MessagedataService
+    private MessageData: MessagedataService,
+    private toastCtrl: ToastController,
+    private router: Router
   ) {
     /*load google map script dynamically */
     const script = document.createElement("script");
@@ -95,7 +102,7 @@ export class MessagePage implements OnInit {
         this.getGeoencoder(this.geoLatitude, this.geoLongitude);
       })
       .catch((error) => {
-        alert("Error getting geolocation" + JSON.stringify(error));
+        console.log("Error getting geolocation" + JSON.stringify(error));
       });
   }
 
@@ -144,6 +151,7 @@ export class MessagePage implements OnInit {
 
   messageTA = "";
   MessageTS: any;
+  txtA:any;
 
 
   async loaders() {
@@ -156,10 +164,21 @@ export class MessagePage implements OnInit {
     await loading.present()
   }
 
+  async messageS(msg) {
+    const toast = await this.toastCtrl.create({
+      header: msg,
+      duration: 2000,
+      color: "danger",
+      mode: "ios"
+    });
+    toast.present();
+  }
+
   sendSMS() {
-    this.sms.send(this.MessageTS.celular, this.messageTA);
-    this.sms.send(this.MessageTS.celular_2, this.messageTA);
+    this.sms.send("+57" + this.MessageTS.celular, this.messageTA);
+    this.sms.send("+57" + this.MessageTS.celular_2, this.messageTA);    
     this.loaders();
+    this.router.navigate(['/qreader']);
   }
 
   
@@ -168,3 +187,9 @@ export class MessagePage implements OnInit {
   } 
 
 }
+
+
+
+  
+  
+

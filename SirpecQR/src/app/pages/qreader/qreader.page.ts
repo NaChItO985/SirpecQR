@@ -8,6 +8,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { HttpService } from 'src/app/services/http.service';
 import { Observable } from 'rxjs';
 import { MessagedataService } from '../../services/messagedata.service';
+import { resolve } from 'url';
 
 @Component({
   selector: "app-qreader",
@@ -17,6 +18,16 @@ import { MessagedataService } from '../../services/messagedata.service';
 export class QreaderPage implements OnInit {
 
   sendData:any;
+  searchDocument: any;
+  dCall:any;
+  
+  
+  public docu={
+    id_usuario: 0
+  };
+  
+  docs:any;
+
   scannedCode = ""; 
   documento = "";  
   blank = "";
@@ -31,17 +42,15 @@ export class QreaderPage implements OnInit {
     private MessageData: MessagedataService
     ){}
 
-  navigate(){
-    this.router.navigate(['/message'])
-  }
 
   scanCode(){
      this.barcodeScanner.scan().then(
       async barcodeData =>{
         this.scannedCode = barcodeData.text; // Información que lee del qr
-        
+        console.log(this.scannedCode, 'console scannedCode');
         if(this.scannedCode != null || undefined){
           this.blank = this.scannedCode.match(/(,\D+)/g).toString();
+          console.log(this.blank, ' this.blank');
           let toast = await this.toastCtrl.create({
             header: 'Información leída correctamente',
             color:'success',
@@ -49,16 +58,34 @@ export class QreaderPage implements OnInit {
             mode:"ios",
             position:"top"
           });
+          
+
+          this.documento = this.scannedCode.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
+          this.searchDocument = parseInt(this.documento); // Conversión a entero del string obtenido de la expresión regular
+          this.docu.id_usuario = this.searchDocument;
+          console.log(this.docu.id_usuario, ' this.docu.id_usuario');
+
+          let doc: Observable<any> = this.http.post("api/searchDocument", this.docu);
+          console.log(doc,' doc antes del subscribe');
+          doc.subscribe((res)=>{
+            this.docs = JSON.stringify(res);
+            console.log(this.docs, ' this.docs[0].ID');
+          });
           toast.present();
         }
       }
-    ), err=> console.log('Error: ', err);
+    ).catch(error => {
+      console.log(error.status);
+      });
   }
 
   async call(){
-    this.documento = this.scannedCode.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
-    this.sendData = parseInt(this.documento); // Conversión a entero del string obtenido de la expresión regular
+    this.dCall= this.docs.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
+    this.sendData = parseInt(this.dCall); // Conversión a entero del string obtenido de la expresión regular
     
+    console.log(this.dCall, ' this.dCall');
+    console.log(this.sendData, 'console de this.sendData ')
+
     if(this.sendData == 0 || null || undefined){
       let toast = await this.toastCtrl.create({
         header: 'El documento no está registrado',
@@ -131,6 +158,9 @@ export class QreaderPage implements OnInit {
 }
   
   async MessageDT(){
+    this.dCall= this.docs.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
+    this.sendData = parseInt(this.dCall); // Conversión a entero del string obtenido de la expresión regular
+    
       let data: Observable<any> = this.http.post("api/getPhones", this.sendData);
         data.subscribe(async (res) => {   
         res.forEach(async phone => {

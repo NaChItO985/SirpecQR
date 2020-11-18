@@ -23,7 +23,7 @@
 </ion-content>
   
 
-<ion-card *ngIf="scannedCode" id="Datos">
+<ion-card  id="Datos">
     <ion-card-header>
       <ion-card-subtitle>La información del qr es:</ion-card-subtitle>  
       <ion-label>- Nombre, Rh, Enfermedad, Medicamentos</ion-label>
@@ -36,17 +36,18 @@
     
     <ion-card-subtitle>¿Deseas enviar un mensaje al contacto o llamar al familiar?</ion-card-subtitle>
     <br/>
-      <!--<ion-button expand="block" [routerLink]="['/message']" color="success">-->
+    <div id="datosinner">
       <ion-button expand="block" (click)="MessageDT()" color="success">
-        <ion-icon name="mail-unread"></ion-icon> 
+        <ion-icon name="mail-unread"></ion-icon> &nbsp;
         Escribir mensaje
         <ion-ripple-effect type="unbounded"></ion-ripple-effect>
       </ion-button>
       <ion-button expand="block" color="danger" (click)="call()">
-        <ion-icon name="call"></ion-icon>
+        <ion-icon name="call"></ion-icon>&nbsp;
         Llamar
         <ion-ripple-effect type="unbounded"></ion-ripple-effect>
       </ion-button>
+    </div>
 </ion-card>
 
 </ion-content>
