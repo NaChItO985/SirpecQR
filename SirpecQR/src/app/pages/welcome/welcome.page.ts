@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { Storage } from '@ionic/storage';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-welcome',
@@ -11,7 +12,8 @@ export class WelcomePage implements OnInit {
 
   constructor(
     public http:HttpService,
-    public storage: Storage
+    public storage: Storage,
+    public navCtrl: NavController
   ) { }
 
   
@@ -26,7 +28,10 @@ export class WelcomePage implements OnInit {
     });
   }
 
-
+  tyc(){
+     this.navCtrl.navigateRoot("/termsyc");
+  }
+  
   ngOnInit() {
     this.user();
   }

@@ -8,7 +8,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { HttpService } from 'src/app/services/http.service';
 import { Observable } from 'rxjs';
 import { MessagedataService } from '../../services/messagedata.service';
-import { resolve } from 'url';
+
 
 @Component({
   selector: "app-qreader",
@@ -49,8 +49,6 @@ export class QreaderPage implements OnInit {
         this.scannedCode = barcodeData.text; // Información que lee del qr
         console.log(this.scannedCode, 'console scannedCode');
         if(this.scannedCode != null || undefined){
-          this.blank = this.scannedCode.match(/(,\D+)/g).toString();
-          console.log(this.blank, ' this.blank');
           let toast = await this.toastCtrl.create({
             header: 'Información leída correctamente',
             color:'success',

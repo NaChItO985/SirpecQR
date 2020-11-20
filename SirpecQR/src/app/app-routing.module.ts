@@ -59,6 +59,10 @@ const routes: Routes = [
     path: 'slides',
     loadChildren: () => import('./pages/slides/slides.module').then( m => m.SlidesPageModule)
   },
+  {
+    path: 'termsyc',
+    loadChildren: () => import('./pages/termsyc/termsyc.module').then( m => m.TermsycPageModule)
+  },
 ];
 
 @NgModule({

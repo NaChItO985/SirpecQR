@@ -19,7 +19,7 @@ export class LogoutPage implements OnInit {
     ) { }
 
   async logout(){
-    this.storage.clear();
+    this.storage.remove('session_storage');
       const toast = await this.toastCtrl.create({
         header: 'Se ha cerrado la sesión correctamente',
         position: 'bottom',

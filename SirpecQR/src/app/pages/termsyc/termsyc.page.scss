@@ -1,0 +1,43 @@
+.slide-full{
+    height: 100% !important;
+}
+
+ion-card{
+    overflow: unset !important;
+    background-color:#E5EDF3;
+}
+
+
+.slide-image{
+    width: 150px;
+    text-align: center;
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    position: relative;
+    top: -50px;
+
+}
+
+
+
+
+.avatar{
+    width: 50px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#imenu{
+  top:2%;
+  right: 2%;
+  position: fixed;
+}
+
+#contenido{
+    text-align:justify;
+    font-weight:bold;
+}

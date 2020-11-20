@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
+import { LoadingController } from '@ionic/angular';
 import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -25,10 +25,20 @@ export class AppComponent implements OnInit {
 
   public appPages = [];
 
+  resarr:any;
+
     validateLogin(){
+      this.storage.get('termsyc').then((res)=>{
+        this.resarr = res;
+      });
       this.storage.get('session_storage').then((data)=>{
-        if(data != null){
+        if(data != null && this.resarr == "x"){
           this.appPages = [
+            {
+              title: 'Inicio',
+              url: '/welcome',
+              icon: 'book'
+            },
             {
               title: 'Lector QR',
               url: '/qreader',
@@ -43,7 +53,7 @@ export class AppComponent implements OnInit {
               title: 'Mensaje',
               url: '/message',
               icon: 'mail'
-            },
+            }, 
             {
               title: 'Enfermedades',
               url: '/diseases',
@@ -53,11 +63,6 @@ export class AppComponent implements OnInit {
               title: 'Alergias',
               url: '/allergies',
               icon: 'warning'
-            }, 
-            {
-              title: 'Seguimiento',
-              url: '/tracker',
-              icon: 'analytics'
             },
             {
               title: 'Cerrar Sesión',
@@ -66,17 +71,41 @@ export class AppComponent implements OnInit {
             }
           ];
         }
-        else if(data == null){
+        else if(data != null && this.resarr == "o" || this.resarr == undefined || this.resarr == null){
           this.appPages = [
+            {
+              title: 'Inicio',
+              url: '/welcome',
+              icon: 'book'
+            },
             {
               title: 'Lector QR',
               url: '/qreader',
               icon: 'qr-code'
             },
             {
-              title: 'Alergias',
-              url: '/folder/Spam',
-              icon: 'warning'
+              title: 'Perfil y Datos',
+              url: '/contact',
+              icon: 'person-circle'
+            },
+            {
+              title: 'Mensaje',
+              url: '/message',
+              icon: 'mail'
+            }, 
+            {
+              title: 'Cerrar Sesión',
+              url: '/logout',
+              icon: 'log-out'
+            }
+          ];
+        }
+        else if(data == null || undefined){
+          this.appPages = [
+            {
+              title: 'Lector QR',
+              url: '/qreader',
+              icon: 'qr-code'
             },
             {
               title: 'Iniciar Sesión',
@@ -97,6 +126,8 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar, 
     private storage: Storage,
+    public loading: LoadingController
+    
   ) {
     this.arr = [];
     this.initializeApp();
@@ -106,7 +137,7 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.validateLogin();
+      this.validateLogin();      
     });
   }
   

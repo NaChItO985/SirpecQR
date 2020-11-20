@@ -7,6 +7,7 @@
 </ion-header>
 
 <ion-content>
+
 <ion-content>
 <ion-card>
   <img src="../../../assets/images/Qreader-Image.jpg" id="image" />
@@ -23,18 +24,13 @@
 </ion-content>
   
 
-<ion-card *ngIf="scannedCode" id="Datos">
+<ion-card  *ngIf="scannedCode"  id="Datos">
     <ion-card-header>
-      <ion-card-subtitle>La información del qr es:</ion-card-subtitle>  
-      <ion-label>- Nombre, Rh, Enfermedad, Medicamentos</ion-label>
+      <ion-card-subtitle>La información se ha leído correctamente.</ion-card-subtitle>  
       <br />
     </ion-card-header>
   
-    <ion-card-content>
-      {{ blank }}
-    </ion-card-content>
-    
-    <ion-card-subtitle>¿Deseas enviar un mensaje al contacto o llamar al familiar?</ion-card-subtitle>
+    <ion-card-subtitle>¿Qué deseas realizar?</ion-card-subtitle>
     <br/>
     <div id="datosinner">
       <ion-button expand="block" (click)="MessageDT()" color="success">

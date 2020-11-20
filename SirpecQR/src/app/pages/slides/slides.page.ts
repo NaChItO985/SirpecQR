@@ -35,7 +35,7 @@ export class SlidesPage implements OnInit {
 
   onClick() {
     this.hide = 'fadeOut'
-    this.navCtrl.navigateRoot('/tracker');
+    this.navCtrl.navigateRoot('/qreader');
   }
 
   ngOnInit() {}

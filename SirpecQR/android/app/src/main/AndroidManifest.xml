@@ -42,7 +42,7 @@
         </provider>
     </application>
 
-    <!-- Permissions -->
+        <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Camera, Photos, input file -->
@@ -62,4 +62,5 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <!-- Message -->
       <uses-permission android:name="android.permission.SEND_SMS" />
+      
 </manifest>
