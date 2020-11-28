@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
             }
           ];
         }
-        else if(data != null && this.resarr == "o" || this.resarr == undefined || this.resarr == null){
+        else if(data != null && this.resarr == "o"  || data != null && this.resarr == null){
           this.appPages = [
             {
               title: 'Inicio',

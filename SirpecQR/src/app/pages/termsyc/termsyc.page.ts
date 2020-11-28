@@ -7,6 +7,8 @@ import { Storage } from "@ionic/storage";
   templateUrl: './termsyc.page.html',
   styleUrls: ['./termsyc.page.scss'],
 })
+
+
 export class TermsycPage implements OnInit {
 
   constructor( private storage: Storage, private navCtrl: NavController) { }
@@ -44,7 +46,6 @@ export class TermsycPage implements OnInit {
     },
   ];
 
-
      Accept(){
       this.storage.set('termsyc',"x"); 
       this.navCtrl.navigateRoot('/welcome');
@@ -55,27 +56,18 @@ export class TermsycPage implements OnInit {
        this.navCtrl.navigateRoot('/welcome');
      };   
 
-     AcceptV(){
-       this.storage.set('termsyc',"x");       
-      this.navCtrl.navigateRoot('/welcome');
-     }
-     RejectV(){
-      this.storage.set('termsyc',"o");
-      this.navCtrl.navigateRoot('/welcome');
-     }
-
      exitnV(){
-      this.navCtrl.navigateRoot('/welcome'); 
+      this.navCtrl.navigateRoot('/welcome');      
      }
 
-     ionViewWillLeave(){
-       location.reload();
+     ngOnDestroy(){
+      location.reload();
      }
-     
+
   ngOnInit() {
       this.storage.get('termsyc').then((res)=>{
       if(res == "o"){
-      this.view = true;
+      this.contract = true;
       console.log("No aceptó los términos");
       }
       else if(res == "x"){
