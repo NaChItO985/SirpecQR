@@ -3,3 +3,47 @@
   right: 2%;
   position: fixed;
 }
+
+
+#banner{
+  border-radius: 0 0 4px 4px;
+  border-bottom: 2px solid #324183;
+}
+
+#text{
+  text-align: center;
+  color: #4170f0;
+}
+
+#info{
+  max-width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: justify;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+th{
+    background-color: #83a1f3;
+    border: solid 1px #3152ad;
+    padding: 10px;
+ }
+
+tr:nth-child(even) {
+  background: #CCC;
+  
+}
+tr:nth-child(odd) {
+  background: #FFF;
+  
+}
+
+td{
+  border: 1pt solid gray;
+  padding:5px;
+}
+
+footer{
+  bottom:0px;
+}

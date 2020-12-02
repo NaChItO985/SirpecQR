@@ -55,14 +55,9 @@ export class AppComponent implements OnInit {
               icon: 'mail'
             }, 
             {
-              title: 'Enfermedades',
+              title: 'Alergias',
               url: '/diseases',
               icon: 'medical'
-            },
-            {
-              title: 'Alergias',
-              url: '/allergies',
-              icon: 'warning'
             },
             {
               title: 'Cerrar Sesión',

@@ -32,6 +32,10 @@ export class QreaderPage implements OnInit {
   documento = "";  
   blank = "";
   
+  
+  accepttyc:any ;
+  rechazedtyc:any;
+  
   constructor(private barcodeScanner:BarcodeScanner,
     private toastCtrl: ToastController,
     private router: Router,
@@ -69,6 +73,24 @@ export class QreaderPage implements OnInit {
             this.docs = JSON.stringify(res);
             console.log(this.docs, ' this.docs[0].ID');
           });
+          let doc2: Observable<any> = this.http.post("api/searchTYC", this.searchDocument);
+          console.log(doc2, ' doc2 antes del subscribe');
+          doc2.subscribe((res)=>{
+            res.forEach((tyc)=>{
+              console.log(tyc.tyc, ' , Console.log tyc.tyc despues del foreach');
+              if(tyc.tyc == "x"){
+              console.log('this.accepttyc true');
+              this.accepttyc = true;
+            }
+            else if(tyc.tyc ==  "o" || ""){
+              console.log('this.rechazedtyc true');
+              this.rechazedtyc = true;
+            }
+            else{
+              console.log(tyc, ' Error en res');
+            }
+            })
+          })
           toast.present();
         }
       }
@@ -167,6 +189,14 @@ export class QreaderPage implements OnInit {
         });
       });
   }
+
+  ViewDiseases(){
+    this.router.navigate(['/diseases']);
+  }
+  ViewAllergies(){
+    this.router.navigate(['/allergies']);
+  }
+
 
   ngOnInit() {
   }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Storage } from "@ionic/storage";
+import { Observable } from 'rxjs';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-termsyc',
@@ -11,8 +13,16 @@ import { Storage } from "@ionic/storage";
 
 export class TermsycPage implements OnInit {
 
-  constructor( private storage: Storage, private navCtrl: NavController) { }
+  constructor( private storage: Storage, 
+    private navCtrl: NavController, 
+    public http: HttpService,) { }
 
+  public update ={
+    id_usuario: 0,
+    tyc: ""
+  }
+
+  user:any;
   contract:any; 
   view: any; 
   noView:any;
@@ -46,25 +56,56 @@ export class TermsycPage implements OnInit {
     },
   ];
 
-     Accept(){
+      //Método para buscar el usuario
+      getUser(){
+        this.storage.get('session_storage').then((res)=>{
+         this.user = res;
+      })
+      }
+
+
+      Accept(){
+      this.getUser();
+      this.update.id_usuario = this.user;
+      this.update.tyc = "x";
       this.storage.set('termsyc',"x"); 
+      let doc: Observable<any> = this.http.post("api/updateTYC", this.update);
+      doc.subscribe((res)=>{
+        console.log(res);
+        if(res != null){
+          location.reload();
+        }
+        else{
+          console.log("Error al obtener el JSON")
+        }
+      })
       this.navCtrl.navigateRoot('/welcome');
       };
      
      Reject(){
+      this.getUser();
+      this.update.id_usuario = this.user;
+      this.update.tyc = "o";
       this.storage.set('termsyc',"o");
-       this.navCtrl.navigateRoot('/welcome');
+      let data: Observable<any> = this.http.post("api/updateTYC", this.update);
+      data.subscribe((res)=>{
+        console.log(res);
+        if(res != null){
+          location.reload();
+        }else{
+          console.log("Error al obtener el JSON")
+        }
+      })
+      this.navCtrl.navigateRoot('/welcome');
      };   
 
      exitnV(){
       this.navCtrl.navigateRoot('/welcome');      
      }
 
-     ngOnDestroy(){
-      location.reload();
-     }
 
   ngOnInit() {
+      this.getUser();
       this.storage.get('termsyc').then((res)=>{
       if(res == "o"){
       this.contract = true;
