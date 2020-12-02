@@ -1,79 +1,79 @@
 <ion-header>
-  <ion-toolbar mode="ios" color="primary">
-    <ion-menu-button id="imenu" color="light"></ion-menu-button>
-    <ion-title>Lector QR</ion-title>
+    <ion-toolbar mode="ios" color="primary">
+        <ion-menu-button id="imenu" color="light"></ion-menu-button>
+        <ion-title>Lector QR</ion-title>
 
-  </ion-toolbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-content>
-    <ion-card>
-      <img src="../../../assets/images/Qreader-Image.jpg" id="image" />
-      <ion-card-header>
-        <p>Presione el botón para escanear el código del paciente</p>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-button expand="block" (click)="scanCode()" color="primary">
-          <ion-icon name="scan-circle-outline"></ion-icon>
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </ion-button>
-      </ion-card-content>
-    </ion-card>
-  </ion-content>
+    <ion-content>
+        <ion-card>
+            <img src="../../../assets/images/Qreader-Image.jpg" id="image" />
+            <ion-card-header>
+                <p>Presione el botón para escanear el código del paciente</p>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-button expand="block" (click)="scanCode()" color="primary">
+                    <ion-icon name="scan-circle-outline"></ion-icon>
+                    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+                </ion-button>
+            </ion-card-content>
+        </ion-card>
+    </ion-content>
 
-  <ion-content *ngIf="accepttyc">
-    <ion-card *ngIf="scannedCode" id="Datos">
-      <ion-card-header>
-        <ion-card-subtitle>La información se ha leído correctamente.</ion-card-subtitle>
-        <br />
-      </ion-card-header>
+    <ion-content *ngIf="accepttyc">
+        <ion-card *ngIf="scannedCode" id="Datos">
+            <ion-card-header>
+                <ion-card-subtitle>La información se ha leído correctamente.</ion-card-subtitle>
+                <br />
+            </ion-card-header>
 
-      <ion-card-subtitle>¿Qué deseas realizar?</ion-card-subtitle>
-      <br />
-      <div id="datosinner">
-        <ion-button expand="block" (click)="MessageDT()" color="success">
-          <ion-icon name="mail-unread"></ion-icon> &nbsp;
-          Escribir mensaje
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </ion-button>
-        <ion-button expand="block" color="danger" (click)="call()">
-          <ion-icon name="call"></ion-icon>&nbsp;
-          Llamar
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </ion-button>
-        <ion-button expand="block" (click)="ViewDiseases()" color="primary">
-          <ion-icon name="medical"></ion-icon> &nbsp;
-          Alergias
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </ion-button>
-      </div>
-    </ion-card>
-  </ion-content>
+            <ion-card-subtitle>¿Qué deseas realizar?</ion-card-subtitle>
+            <br />
+            <div id="datosinner">
+                <ion-button expand="block" (click)="MessageDT()" color="success">
+                    <ion-icon name="mail-unread"></ion-icon> &nbsp;
+                    Escribir mensaje
+                    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+                </ion-button>
+                <ion-button expand="block" color="danger" (click)="call()">
+                    <ion-icon name="call"></ion-icon>&nbsp;
+                    Llamar
+                    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+                </ion-button>
+                <ion-button expand="block" (click)="ViewDiseases()" color="primary">
+                    <ion-icon name="medical"></ion-icon> &nbsp;
+                    Alergias
+                    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+                </ion-button>
+            </div>
+        </ion-card>
+    </ion-content>
 
-  <ion-content *ngIf="rechazedtyc">
-    <ion-card *ngIf="scannedCode" id="Datos">
-      <ion-card-header>
-        <ion-card-subtitle>La información se ha leído correctamente.</ion-card-subtitle>
-        <br />
-      </ion-card-header>
+    <ion-content *ngIf="rechazedtyc">
+        <ion-card *ngIf="scannedCode" id="Datos">
+            <ion-card-header>
+                <ion-card-subtitle>La información se ha leído correctamente.</ion-card-subtitle>
+                <br />
+            </ion-card-header>
 
-      <ion-card-subtitle>¿Qué deseas realizar?</ion-card-subtitle>
-      <br />
-      <div id="datosinner">
-        <ion-button expand="block" (click)="MessageDT()" color="success">
-          <ion-icon name="mail-unread"></ion-icon> &nbsp;
-          Escribir mensaje
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </ion-button>
-        <ion-button expand="block" color="danger" (click)="call()">
-          <ion-icon name="call"></ion-icon>&nbsp;
-          Llamar
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </ion-button>
-      </div>
-    </ion-card>
-  </ion-content>
+            <ion-card-subtitle>¿Qué deseas realizar?</ion-card-subtitle>
+            <br />
+            <div id="datosinner">
+                <ion-button expand="block" (click)="MessageDT()" color="success">
+                    <ion-icon name="mail-unread"></ion-icon> &nbsp;
+                    Escribir mensaje
+                    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+                </ion-button>
+                <ion-button expand="block" color="danger" (click)="call()">
+                    <ion-icon name="call"></ion-icon>&nbsp;
+                    Llamar
+                    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+                </ion-button>
+            </div>
+        </ion-card>
+    </ion-content>
 
 </ion-content>

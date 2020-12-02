@@ -1,9 +1,0 @@
-Cambios a la apk:
-
-- Completar los módulos enfermedades y alergias (Alergias y otro nombre - Mostrar cosas importantes para tener en cuenta al momento de informar a los paramedicos).
-- Cambiar el mensaje de welcome
-- Modificar el mensaje para que llegue a los contactos
-
-
-Cambios posibles e importantes:
-* Tener en cuenta el documento para que nadie lo vea ya que es información sensible (Habeas data) y la consulta se haga por otro dato como nombre o celular.

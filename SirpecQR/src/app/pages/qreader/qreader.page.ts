@@ -46,7 +46,7 @@ export class QreaderPage implements OnInit {
         private MessageData: MessagedataService
     ) { }
 
-
+    //Método para realizar la lectura y búsqueda de datos 
     scanCode() {
         this.barcodeScanner.scan().then(
             async barcodeData => {
@@ -99,6 +99,7 @@ export class QreaderPage implements OnInit {
         });
     }
 
+    //Método para realizar la llamada a los contactos
     async call() {
         this.dCall = this.docs.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
         this.sendData = parseInt(this.dCall); // Conversión a entero del string obtenido de la expresión regular
@@ -177,6 +178,7 @@ export class QreaderPage implements OnInit {
         }
     }
 
+    //Método para redirigir al usuario al módulo de mensaje con el número a enviar
     async MessageDT() {
         this.dCall = this.docs.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
         this.sendData = parseInt(this.dCall); // Conversión a entero del string obtenido de la expresión regular

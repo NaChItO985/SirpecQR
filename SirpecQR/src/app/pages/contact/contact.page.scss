@@ -1,25 +1,29 @@
-*{
-    font-family: 'Raleway';
+* {
+  font-family: "Raleway";
 }
 
-#DataUsers{
-    text-align: center;
-    padding-top: 2%;
-    padding-bottom: 3%;
+#DataUsers {
+  text-align: center;
+  padding-top: 2%;
+  padding-bottom: 3%;
 }
-#note-title{
-    color: red;
-    font-weight: bold;
+#note-title {
+  color: #6d64f1;
+  font-weight: bold;
 }
-#note{
-    color: red;
+#note {
+  color: black;
 }
 
-#notes{
-    z-index: -2;
+#note-bold {
+  color: #f02e2e;
+  font-weight: bold;
 }
-#imenu{
-  top:2%;
+#notes {
+  z-index: -2;
+}
+#imenu {
+  top: 2%;
   right: 2%;
   position: fixed;
 }

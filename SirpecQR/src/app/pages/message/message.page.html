@@ -1,50 +1,47 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Mensaje</ion-title>
-    <ion-menu-button id="imenu" color="light"></ion-menu-button>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-title>Mensaje</ion-title>
+        <ion-menu-button id="imenu" color="light"></ion-menu-button>
+    </ion-toolbar>
 </ion-header>
 
 <div #Map class="map"></div>
 
 <ion-card id="container">
-  <!--
-  <ion-button (click)="getGeolocation()" expand="block">
-  <ion-icon name="location"></ion-icon> Obtener ubicación
-  </ion-button>-->
-  <ion-button (click)="watchLocation()" expand="block" color="success">
-    <ion-icon name="navigate"></ion-icon> Actualizar Rastreo
-  </ion-button>
-  <ion-button (click)="stopLocationWatch()" expand="block" color="danger">
-    <ion-icon name="navigate"></ion-icon> Detener Rastreo
-  </ion-button>
-  <ion-button (click)="AlertMessage()" expand="block" color="primary">
-    <ion-icon name="navigate"></ion-icon> Enviar alerta
-  </ion-button>
 
-  <div *ngIf="geoLatitude">
-    <p>Su ubicación es: </p>
-    <p>Latitud : {{geoLatitude}}</p>
-    <p>Longitud : {{geoLongitude}}</p>
-    <p>Precisión : {{geoAccuracy}}</p>
-    <p class="address-text">
+    <ion-button (click)="watchLocation()" expand="block" color="success">
+        <ion-icon name="navigate"></ion-icon> Actualizar Rastreo
+    </ion-button>
+    <ion-button (click)="stopLocationWatch()" expand="block" color="danger">
+        <ion-icon name="navigate"></ion-icon> Detener Rastreo
+    </ion-button>
+    <ion-button (click)="AlertMessage()" expand="block" color="primary">
+        <ion-icon name="navigate"></ion-icon> Enviar alerta
+    </ion-button>
 
-      <span class="watch-text" *ngIf="isWatching; else notWatching">
-        Buscar ubicación
-      </span>
-      <ng-template #notWatching>
-        Ubicación pausada
-      </ng-template>
+    <div *ngIf="geoLatitude">
+        <p>Su ubicación es: </p>
+        <p>Latitud : {{geoLatitude}}</p>
+        <p>Longitud : {{geoLongitude}}</p>
+        <p>Precisión : {{geoAccuracy}}</p>
+        <p class="address-text">
 
-      <br>Dirección : {{geoAddress }}
-    </p>
-  </div>
+            <span class="watch-text" *ngIf="isWatching; else notWatching">
+                Buscar ubicación
+            </span>
+            <ng-template #notWatching>
+                Ubicación pausada
+            </ng-template>
+
+            <br>Dirección : {{geoAddress }}
+        </p>
+    </div>
 </ion-card>
 <footer>
-  <ion-item>
-    <ion-icon name="mail" slot="start"></ion-icon>
-    <ion-label position="floating">Mensaje a ingresar</ion-label>
-    <ion-textarea id="messageTA" [(ngModel)]="messageTA"></ion-textarea>
-    <ion-button color="success" fill="solid" slot="end" (click)="sendSMS()">Enviar</ion-button>
-  </ion-item>
+    <ion-item>
+        <ion-icon name="mail" slot="start"></ion-icon>
+        <ion-label position="floating">Mensaje a ingresar</ion-label>
+        <ion-textarea id="messageTA" [(ngModel)]="messageTA"></ion-textarea>
+        <ion-button color="success" fill="solid" slot="end" (click)="sendSMS()">Enviar</ion-button>
+    </ion-item>
 </footer>

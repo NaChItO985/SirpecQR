@@ -1,45 +1,45 @@
 <ion-header>
     <ion-toolbar mode="ios" color="primary">
-      <ion-menu-button id="imenu" color="light"></ion-menu-button>
-    <ion-title>Términos y Condiciones</ion-title>
-  </ion-toolbar>
+        <ion-menu-button id="imenu" color="light"></ion-menu-button>
+        <ion-title>Términos y Condiciones</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-slides pager="true" class="slide-full">
-  <ion-slide *ngFor="let slide of slides">
-    <ion-card mode="ios">
-      <img [src]="slide.img" class="slide-image">
-      <ion-card-header>
-        <ion-card-title color="primary">{{slide.title}}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content id="contenido">
-        {{slide.desc}}
-      </ion-card-content>
-    </ion-card>
-  </ion-slide>
-  <ion-slide *ngIf="contract">
-      <ion-card-content>
-        <strong>Una vez leído los términos y condiciones.</strong>
-        <br/>
-        <br />
-        ¿Qué desea hacer?
-        <ion-button expand="full" color="success" fill="clear" (click)="Accept()">Aceptar</ion-button>
-        <ion-button expand="full" color="danger" fill="clear" (click)="Reject()">Rechazar</ion-button>
-      </ion-card-content>
-  </ion-slide>
-  <ion-slide *ngIf="noView">
-    <ion-card>
-      <ion-card-content>
-        <strong>Muchas Gracias</strong>
-        <br />
-        Por leer y aceptar los términos y condiciones. 
-        <br />
-        <br />
-        <strong>Ya está activo el módulo adicional.</strong>
-        <ion-button expand="full" color="danger" fill="clear" (click)="exitnV()">Salir</ion-button>
-      </ion-card-content>
-    </ion-card>
-  </ion-slide>
-</ion-slides>
+    <ion-slides pager="true" class="slide-full">
+        <ion-slide *ngFor="let slide of slides">
+            <ion-card mode="ios">
+                <img [src]="slide.img" class="slide-image">
+                <ion-card-header>
+                    <ion-card-title color="primary">{{slide.title}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content id="contenido">
+                    {{slide.desc}}
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+        <ion-slide *ngIf="contract">
+            <ion-card-content>
+                <strong>Una vez leído los términos y condiciones.</strong>
+                <br />
+                <br />
+                ¿Qué desea hacer?
+                <ion-button expand="full" color="success" fill="clear" (click)="Accept()">Aceptar</ion-button>
+                <ion-button expand="full" color="danger" fill="clear" (click)="Reject()">Rechazar</ion-button>
+            </ion-card-content>
+        </ion-slide>
+        <ion-slide *ngIf="noView">
+            <ion-card>
+                <ion-card-content>
+                    <strong>Muchas Gracias</strong>
+                    <br />
+                    Por leer y aceptar los términos y condiciones.
+                    <br />
+                    <br />
+                    <strong>Ya está activo el módulo adicional.</strong>
+                    <ion-button expand="full" color="danger" fill="clear" (click)="exitnV()">Salir</ion-button>
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+    </ion-slides>
 </ion-content>

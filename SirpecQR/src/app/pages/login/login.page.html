@@ -1,31 +1,31 @@
 <ion-header>
-  <ion-toolbar color="primary" mode="ios">
-    <ion-menu-button id="imenu" color="light"></ion-menu-button>
-    <ion-title>Iniciar Sesión</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary" mode="ios">
+        <ion-menu-button id="imenu" color="light"></ion-menu-button>
+        <ion-title>Iniciar Sesión</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <br/>
-<img src="../../assets/LogoSirpecQR.png" alt="Logo">
-<br />
-<br />
-<ion-list>
-  <ion-item>
-    <ion-icon name="finger-print" slot="start"></ion-icon>
-    <ion-label position="floating">Documento</ion-label>
-    <ion-input autocomplete="off" type="number" name ="document" [(ngModel)]="postData.id_documento"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-icon name="key-sharp" slot="start"></ion-icon>
-    <ion-label position="floating">Contraseña</ion-label>
-    <ion-input autocomplete="off" type="password" name="password" [(ngModel)]="postData.contrasena"></ion-input>
-  </ion-item>
-</ion-list>
-<br/>
-<div id="btns">
-  <ion-button expand="block"  color="primary" (click)="loginAction()">Iniciar Sesión</ion-button>
-  <br/>
-  <ion-label [routerLink]="['/reset-password']" color="primary">¿Ha olvidado su contraseña?</ion-label>
-</div>
+    <br />
+    <img src="../../assets/LogoSirpecQR.png" alt="Logo">
+    <br />
+    <br />
+    <ion-list>
+        <ion-item>
+            <ion-icon name="finger-print" slot="start"></ion-icon>
+            <ion-label position="floating">Documento</ion-label>
+            <ion-input autocomplete="off" type="number" name="document" [(ngModel)]="postData.id_documento"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="key-sharp" slot="start"></ion-icon>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input autocomplete="off" type="password" name="password" [(ngModel)]="postData.contrasena"></ion-input>
+        </ion-item>
+    </ion-list>
+    <br />
+    <div id="btns">
+        <ion-button expand="block" color="primary" (click)="loginAction()">Iniciar Sesión</ion-button>
+        <br />
+        <ion-label [routerLink]="['/reset-password']" color="primary">¿Ha olvidado su contraseña?</ion-label>
+    </div>
 </ion-content>
