@@ -28,9 +28,9 @@ export class MessagePage implements OnInit {
   markerOptions: any = { position: null, map: null, title: null };
   marker: any;
   apiKey: any = "AIzaSyDwHp0f0c0T9gPA4KWtPSOyRAaCAaC2xJQ"; /*Your API Key*/
-  
 
-  
+
+
   constructor(
     public zone: NgZone,
     public geolocation: Geolocation,
@@ -42,9 +42,9 @@ export class MessagePage implements OnInit {
     private toastCtrl: ToastController,
     private router: Router,
     private storage: Storage,
-    public http:HttpService,
+    public http: HttpService,
   ) {
-    
+
     /*load google map script dynamically */
     const script = document.createElement("script");
     script.id = "googleMap";
@@ -80,8 +80,8 @@ export class MessagePage implements OnInit {
     }, 3000);
   }
 
-    //Variables of all code
-    
+  //Variables of all code
+
   geoLatitude: number;
   geoLongitude: number;
   geoAccuracy: number;
@@ -90,24 +90,24 @@ export class MessagePage implements OnInit {
   watchLocationUpdates: any;
   loading: any;
   isWatching: boolean;
- 
+
   messageTA = "";
   MessageTS: any;
-  txtA:any;
-  AlertMS:any;
+  txtA: any;
+  AlertMS: any;
 
-  public usu={
+  public usu = {
     id_usuario: 0
   };
-  
-  usuAMS:any;
+
+  usuAMS: any;
   Dusu: any;
   sendDusu: any;
-  Alat:any;
-  Alon:any;
+  Alat: any;
+  Alon: any;
   Aadr: any;
 
-  names:any;
+  names: any;
 
   //Geocoder configuration
   geoencoderOptions: NativeGeocoderOptions = {
@@ -196,49 +196,46 @@ export class MessagePage implements OnInit {
 
   sendSMS() {
     this.sms.send("+57" + this.MessageTS.celular, this.messageTA);
-    this.sms.send("+57" + this.MessageTS.celular_2, this.messageTA);    
+    this.sms.send("+57" + this.MessageTS.celular_2, this.messageTA);
     this.loaders();
     this.router.navigate(['/qreader']);
   }
 
-    AlertMessage(){
-      let Musu: Observable<any> = this.http.post("api/searchDocument", this.usu);
-        Musu.subscribe((res)=>{
-        this.usuAMS = JSON.stringify(res); 
-        console.log(this.usuAMS, ' , this.usuAMS')
-        this.Dusu = this.usuAMS.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
-        this.sendDusu = parseInt(this.Dusu); // Conversión a entero del string obtenido de la expresión regular
-        console.log(this.sendDusu, ' ,this.sendDusu')
+  AlertMessage() {
+    let Musu: Observable<any> = this.http.post("api/searchDocument", this.usu);
+    Musu.subscribe((res) => {
+      this.usuAMS = JSON.stringify(res);
+      this.Dusu = this.usuAMS.match(/([0-9])+/g).toString(); //Expresión regular para obtener el documento del usuario
+      this.sendDusu = parseInt(this.Dusu); // Conversión a entero del string obtenido de la expresión regular
       let data: Observable<any> = this.http.post("api/getPhones", this.sendDusu);
-      data.subscribe((res)=>{
-        res.forEach((phone)=>{
-          this.sms.send("+57" + phone.celular, "Se ha enviado una alerta de "+ this.names.nombre +" por emergencia en la direccion: "+ this.geoAddress);
-          this.sms.send("+57" + phone.celular_2, "Se ha enviado una alerta de emergencia en la direccion: "+ this.geoAddress);
+      data.subscribe((res) => {
+        res.forEach((phone) => {
+          this.sms.send("+57" + phone.celular, "Se ha enviado una alerta de " + this.names[0].nombre + " por emergencia en la direccion: " + this.geoAddress);
+          this.sms.send("+57" + phone.celular_2, "Se ha enviado una alerta de " + this.names[0].nombre + " por emergencia en la direccion: " + this.geoAddress);
         });
-      })    
-      });
-      this.loaders();
-      }
+      })
+    });
+    this.loaders();
+  }
 
 
   ngOnInit() {
-    this.MessageData.$getObjectSource.subscribe((data) =>{this.MessageTS = data}).unsubscribe();
-    this.storage.get('session_storage').then((res)=>{
+    this.MessageData.$getObjectSource.subscribe((data) => { this.MessageTS = data }).unsubscribe();
+    this.storage.get('session_storage').then((res) => {
       this.usu.id_usuario = res;
     });
     this.storage.get('session_storage').then((res) => {
       this.http.post('api/getUpdate', res).subscribe((res) => {
         this.names = res;
-        console.log(this.names, ' , this.names');
       });
     });
     this.getGeolocation();
-  } 
+  }
 
 }
 
 
 
-  
-  
+
+
 

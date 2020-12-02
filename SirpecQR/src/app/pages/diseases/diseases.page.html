@@ -1,38 +1,44 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Alergias</ion-title>
-    <ion-menu-button id="imenu" color="light"></ion-menu-button>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-title>Alergias</ion-title>
+        <ion-menu-button id="imenu" color="light"></ion-menu-button>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content >
-  <div id="content">
-    <img src="../../../assets/images/SirpecQR-diseases.png" id="banner"/>
-  </div>
-<div id="text">
-<h1>Información</h1>
-</div>
-<div id="info">
-<table class="tableusers">
-  <thead>
-    <tr>
-      <th scope="col">Alergia/Enfermedad</th>
-      <th scope="col">Tratamiento</th>
-      <th scope="col">RH</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let patient of patients">
-      <td>{{patient.nombre_alergia}}</td>
-      <td>{{patient.nombre_tratamiento}}</td>
-      <td>{{patient.rh}}</td>
-    </tr>
-  </tbody>
-</table>
-  </div>
+<ion-content>
+    <div id="content">
+        <img src="../../../assets/images/SirpecQR-diseases.png" id="banner" />
+    </div>
+    <ion-card>
+        <ion-item>
+            <ion-icon name="water-outline" color="danger" slot="start"></ion-icon>
+            <ion-label color="danger">Información sanguínea</ion-label>
+        </ion-item>
+        <ion-card-content>
+            La información sanguínea del usuario es: &nbsp; {{patient}}
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-subtitle color="danger" id="title">Alergias o enfermedades</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <div id="info">
+                <table class="tableusers">
+                    <thead>
+                        <tr>
+                            <th scope="col">Alergia/Enfermedad</th>
+                            <th scope="col">Tratamiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let patient of patients">
+                            <td>{{patient.nombre_alergia}}</td>
+                            <td>{{patient.nombre_tratamiento}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ion-card-content>
+    </ion-card>
 </ion-content>
-<ion-footer>
-  <ion-toolbar>
-    <ion-title>Footer - No Border</ion-title>
-  </ion-toolbar>
-</ion-footer>

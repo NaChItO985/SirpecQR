@@ -28,6 +28,7 @@ th{
     background-color: #83a1f3;
     border: solid 1px #3152ad;
     padding: 10px;
+    color:#fffffff5;
  }
 
 tr:nth-child(even) {
@@ -46,4 +47,8 @@ td{
 
 footer{
   bottom:0px;
+}
+
+#title{
+  text-align: center;
 }

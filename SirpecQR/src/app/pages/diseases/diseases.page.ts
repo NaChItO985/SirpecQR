@@ -12,50 +12,55 @@ import { patientInterface } from '../../models/patient';
 })
 export class DiseasesPage implements OnInit {
 
-    patients:patientInterface[];
+  patients: patientInterface[];
+  patient: any;
 
   constructor(
     private storage: Storage,
     private navCtrl: NavController,
-    private http: HttpService
+    private http: HttpService,
   ) { }
 
-    data: any
-    diseasesV = false;
-    id_usuario: 0;
+  data: any
+  diseasesV = false;
+  id_usuario: 0;
 
-    validate(){
-        this.storage.get('termsyc').then((res)=>{
-        this.data = res;
-        if(this.data == "x"){ 
-          this.diseasesV = true;
-        }
-        else if(this.data == "o"){
-          this.navCtrl.navigateRoot('/termsyc');
-        }
-        else{
-          console.log("Hubo un problema");
-        }
-      });
-    }
+  validate() {
+    this.storage.get('termsyc').then((res) => {
+      this.data = res;
+      if (this.data == "x") {
+        this.diseasesV = true;
+      }
+      else if (this.data == "o") {
+        this.navCtrl.navigateRoot('/termsyc');
+      }
+      else {
+        console.log("Hubo un problema");
+      }
+    });
+  }
 
-    
-    search(){
-      this.storage.get('session_storage').then((res)=>{
-        this.id_usuario = res;
-        console.log(this.id_usuario, ', this.id_usuario antes del data');
-       let data: Observable<any> = this.http.post("api/searchAllergies", this.id_usuario);
-          console.log(data, ' data antes del subscribe');
-          data.subscribe((resp)=>{
-            this.patients = resp;
-          })
+
+  search() {
+    this.storage.get('session_storage').then((res) => {
+      this.id_usuario = res;
+      let data: Observable<any> = this.http.post("api/searchAllergies", this.id_usuario);
+      data.subscribe((resp) => {
+        this.patients = resp;
+        if (resp != null) {
+          this.patient = resp[0].rh;
+        }
+        else {
+          this.patient = "";
+        }
       })
-    }
+    })
+  }
 
 
-    ngOnInit() {
-      this.validate();
-      this.search();
+  ngOnInit() {
+    this.validate();
+    this.search();
   }
 
 }
