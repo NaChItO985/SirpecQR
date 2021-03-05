@@ -27,7 +27,7 @@ export class MessagePage implements OnInit {
     location = { lat: null, lng: null };
     markerOptions: any = { position: null, map: null, title: null };
     marker: any;
-    apiKey: any = "AIzaSyDwHp0f0c0T9gPA4KWtPSOyRAaCAaC2xJQ"; /*Your API Key*/
+    apiKey: any = "YOURAPIKEY"; /*Your API Key*/
 
 
 
